@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/huck51/Wander-Outdoor-API/issues"
   },
-  "homepage": "https://github.com/huck51/Wander-Outdoor-API#readme"
+  "homepage": "https://github.com/huck51/Wander-Outdoor-API#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.3"
+  }
 }
