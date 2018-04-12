@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 5001;
 
 const server = express();
 
+mongoose.Promise = global.Promise;
+
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
