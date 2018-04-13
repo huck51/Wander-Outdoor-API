@@ -39,18 +39,28 @@ const CompanySchema = new Schema({
     unique: true,
   },
   companyCode: {
+    type: String,
     unique: true,
   },
-  guides: {},
-  trips: {},
+  guides: {
+    type: Array,
+  },
+  trips: {
+    type: Array,
+  },
   about: {
     type: String,
   },
   locations: {
+    type: Array,
     required: true,
   },
-  permits: {},
-  rating: {},
+  permits: {
+    type: Array,
+  },
+  rating: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
