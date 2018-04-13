@@ -44,14 +44,23 @@ const GuideSchema = new Schema({
     type: String,
     required: true,
   },
-  certs: {},
+  certs: {
+    type: Array,
+  },
   profilePic: {},
   _id: {
     type: Schema.types.ObjectId,
     unique: true,
   },
   rating: {},
-  trips: {},
+  trips: {
+    type: Array,
+    required: true,
+  },
+  activities: {
+    type: Array,
+    required: true,
+  },
 });
 
 

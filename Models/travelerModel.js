@@ -37,7 +37,9 @@ const TravelerSchema = new Schema({
   },
   profilePic: {},
   stats: {},
-  trips: {},
+  trips: {
+    type: Array,
+  },
   rating: {},
 });
 

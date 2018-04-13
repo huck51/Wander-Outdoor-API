@@ -57,10 +57,16 @@ const CompanySchema = new Schema({
   },
   permits: {
     type: Array,
+    required: true,
   },
   rating: {
     type: Number,
   },
+  activities: {
+    type: Array,
+    required: true,
+  },
+  logo: {},
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
