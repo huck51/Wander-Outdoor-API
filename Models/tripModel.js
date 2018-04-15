@@ -21,8 +21,12 @@ const Trip = new Schema({
     type: String,
     required: true,
   },
-  guides: {},
-  rating: {},
+  guides: {
+    type: [String],
+  },
+  rating: {
+    type: Number,
+  },
   _id: {
     type: Schema.types.ObjectId,
     unique: true,

@@ -43,27 +43,27 @@ const CompanySchema = new Schema({
     unique: true,
   },
   guides: {
-    type: Array,
+    type: [String],
   },
   trips: {
-    type: Array,
+    type: [String],
   },
   about: {
     type: String,
   },
   locations: {
-    type: Array,
+    type: [String],
     required: true,
   },
   permits: {
-    type: Array,
+    type: [String],
     required: true,
   },
   rating: {
     type: Number,
   },
   activities: {
-    type: Array,
+    type: [String],
     required: true,
   },
   logo: {},

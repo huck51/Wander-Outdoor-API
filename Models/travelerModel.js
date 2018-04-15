@@ -38,9 +38,11 @@ const TravelerSchema = new Schema({
   profilePic: {},
   stats: {},
   trips: {
-    type: Array,
+    type: [String],
   },
-  rating: {},
+  rating: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('Traveler', TravelerSchema);
