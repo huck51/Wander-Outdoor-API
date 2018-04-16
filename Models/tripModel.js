@@ -34,7 +34,8 @@ const Trip = new Schema({
   photo: {
     data: Buffer,
     contentType: String,
-  }
+  },
+  stats: {},
 });
 
 
