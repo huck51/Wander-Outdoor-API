@@ -35,7 +35,10 @@ const TravelerSchema = new Schema({
     type: Schema.types.ObjectId,
     unique: true,
   },
-  profilePic: {},
+  profilePic: {
+    data: Buffer,
+    contentType: String,
+  },
   stats: {},
   trips: {
     type: [String],

@@ -66,7 +66,10 @@ const CompanySchema = new Schema({
     type: [String],
     required: true,
   },
-  logo: {},
+  logo: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

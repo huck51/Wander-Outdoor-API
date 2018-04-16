@@ -30,6 +30,10 @@ const Trip = new Schema({
   _id: {
     type: Schema.types.ObjectId,
     unique: true,
+  },
+  photo: {
+    data: Buffer,
+    contentType: String,
   }
 });
 

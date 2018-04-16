@@ -47,7 +47,10 @@ const GuideSchema = new Schema({
   certs: {
     type: [String],
   },
-  profilePic: {},
+  profilePic: {
+    data: Buffer,
+    contentType: String,
+  },
   _id: {
     type: Schema.types.ObjectId,
     unique: true,
