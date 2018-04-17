@@ -12,7 +12,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
 server.get('/', (req, res) => {
-  res.send({'SERVES UP DOOD'});
+  res.send('SERVES UP DOOD');
 });
 
 server.listen(PORT, () => {
