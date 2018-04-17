@@ -11,7 +11,9 @@ mongoose.connect('mongodb://localhost/wander', { useMongoClient: true });
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
-
+server.get('/', req, res) {
+  res.send({'SERVES UP DOOD'});
+}
 
 server.listen(PORT, () => {
   console.log(`Servs up dude ${PORT}`);
