@@ -5,8 +5,8 @@ const PORT = process.env.PORT || 5001;
 
 const server = express();
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/wander', { useMongoClient: true });
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost/wander', { useMongoClient: true });
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
