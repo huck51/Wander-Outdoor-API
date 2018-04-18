@@ -36,7 +36,7 @@ const CompanySchema = new Schema({
   },
   companyCode: {
     type: String,
-    unique: true,
+    default: "69696969", // Remember to change this back to 'unique: true'
   },
   guides: {
     type: [String],
