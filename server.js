@@ -20,47 +20,42 @@ server.get('/', (req, res) => {
 });
 
 server.post('/signup/traveler', (req, res) => {
-  const body = req.body;
-  const newTraveler = {
-    firstName: body.firstName,
-    lastName: body.lastName,
-    DOB: body.DOB,
-    email: body.email,
-    phone: body.phone,
-    username: body.username,
-    password: body.password
-  };
+  const { firstName, lastName, DOB, email, phone, username, password } = req.body;
+  const newTraveler = new Traveler({ firstName, lastName, DOB, email, phone, username, password });
+  newTraveler.save((err, newTraveler) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message});
+    } else {
+      res.json(newTraveler);
+    }
+  });
 });
 
 server.post('/signup/guide', (req, res) => {
-  const body = req.body;
-  const newGuide = {
-    firstName: body.firstName,
-    lastName: body.lastName,
-    companyName: body.companyName,
-    companyCode: body.companyCode,
-    email: body.email,
-    phone: body.phone,
-    DOB: body.DOB,
-    username: body.username,
-    password: body.password,
-    bio: body.bio,
-    certs: body.certs
-  };
+  const { firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs } = req.body;
+  const newGuide = new Guide({ firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs });
+  newGuide.save((err, newGuide) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      res.json(newGuide);
+    }
+  });
 });
 
 server.post('/signup/guiding-company', (req, res) => {
-  const body = req.body;
-  const newCompany = {
-    companyName: body.companyName,
-    companyAddress: body.companyAddress,
-    companyPhone: body.companyPhone,
-    contactName: body.contactName,
-    jobTitle: body.jobTitle,
-    contactPhone: body.contactPhone,
-    email: body.email,
-    password: body.password
-  };
+  const { companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, email, password } = req.body;
+  const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, email, password });
+  newCompany.save((err, newCompany) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      res.json(newCompany);
+    }
+  });
 });
 
 server.listen(PORT, () => {
