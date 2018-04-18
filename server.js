@@ -46,7 +46,7 @@ server.post('/signup/guide', (req, res) => {
 });
 
 server.post('/signup/guiding-company', (req, res) => {
-  const { companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, email, password } = req.body;
+  const { companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password } = req.body;
   const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, email, password });
   newCompany.save((err, newCompany) => {
     if (err) {

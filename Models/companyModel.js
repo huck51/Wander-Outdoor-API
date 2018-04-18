@@ -49,18 +49,18 @@ const CompanySchema = new Schema({
   },
   locations: {
     type: [String],
-    required: true,
+    // required: true,
   },
   permits: {
     type: [String],
-    required: true,
+    // required: true,
   },
   rating: {
     type: Number,
   },
   activities: {
     type: [String],
-    required: true,
+    // required: true,
   },
   logo: {
     data: Buffer,
