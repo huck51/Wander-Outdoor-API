@@ -21,14 +21,46 @@ server.get('/', (req, res) => {
 
 server.post('/signup/traveler', (req, res) => {
   const body = req.body;
+  const newTraveler = {
+    firstName: body.firstName,
+    lastName: body.lastName,
+    DOB: body.DOB,
+    email: body.email,
+    phone: body.phone,
+    username: body.username,
+    password: body.password
+  };
 });
 
 server.post('/signup/guide', (req, res) => {
   const body = req.body;
+  const newGuide = {
+    firstName: body.firstName,
+    lastName: body.lastName,
+    companyName: body.companyName,
+    companyCode: body.companyCode,
+    email: body.email,
+    phone: body.phone,
+    DOB: body.DOB,
+    username: body.username,
+    password: body.password,
+    bio: body.bio,
+    certs: body.certs
+  };
 });
 
 server.post('/signup/guiding-company', (req, res) => {
   const body = req.body;
+  const newCompany = {
+    companyName: body.companyName,
+    companyAddress: body.companyAddress,
+    companyPhone: body.companyPhone,
+    contactName: body.contactName,
+    jobTitle: body.jobTitle,
+    contactPhone: body.contactPhone,
+    email: body.email,
+    password: body.password
+  };
 });
 
 server.listen(PORT, () => {
