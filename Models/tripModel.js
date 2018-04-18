@@ -27,10 +27,6 @@ const Trip = new Schema({
   rating: {
     type: Number,
   },
-  _id: {
-    type: Schema.types.ObjectId,
-    unique: true,
-  },
   photo: {
     data: Buffer,
     contentType: String,

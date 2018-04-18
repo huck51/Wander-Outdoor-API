@@ -12,9 +12,6 @@ const CommentModel = new Schema({
   date: {
     type: Date,
   },
-  _id: {
-    type: Schema.types.ObjectId,
-  }
 });
 
 

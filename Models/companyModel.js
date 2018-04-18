@@ -34,10 +34,6 @@ const CompanySchema = new Schema({
     type: String,
     required: true,
   },
-  _id: {
-    type: Schema.types.ObjectId,
-    unique: true,
-  },
   companyCode: {
     type: String,
     unique: true,

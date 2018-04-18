@@ -51,10 +51,6 @@ const GuideSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
-  _id: {
-    type: Schema.types.ObjectId,
-    unique: true,
-  },
   rating: {
     type: Number,
   },
