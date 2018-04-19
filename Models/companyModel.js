@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const rando(min, max) => {
+const rando = (min, max) => {
   return Math.random() * (max - min) + min;
 }
 
