@@ -52,6 +52,18 @@ server.get('/guiding-companies', (req, res) => {
   });
 });
 
+server.get('/results', (req, res) => {
+  Company.find({}, (err, allCompanies) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      console.log(allCompanies);
+      res.send(allCompanies);
+    }
+  })
+});
+
 server.post('/signup/traveler', (req, res) => {
   const { firstName, lastName, DOB, email, phone, username, password } = req.body;
   const newTraveler = new Traveler({ firstName, lastName, DOB, email, phone, username, password });
