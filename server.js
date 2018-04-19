@@ -80,8 +80,12 @@ server.post('/signup/guide', (req, res) => {
 });
 
 server.post('/signup/guiding-company', (req, res) => {
+  const rando = (min, max) => {
+    return Math.random() * (max - min) + min;
+  }
+  const code = rando(100000000, 999999999);
   const { companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password } = req.body;
-  const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password });
+  const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password, code });
   newCompany.save((err, newCompany) => {
     if (err) {
       res.status(422);
