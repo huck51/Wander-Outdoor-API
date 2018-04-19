@@ -84,8 +84,9 @@ server.post('/signup/guiding-company', (req, res) => {
     return Math.random() * (max - min) + min;
   }
   const code = rando(100000000, 999999999);
+  console.log(code);
   const { companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password } = req.body;
-  const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password, code });
+  const newCompany = new Company({ companyName, companyAddress, companyPhone, contactName, jobTitle, contactPhone, contactEmail, password, companyCode: code });
   newCompany.save((err, newCompany) => {
     if (err) {
       res.status(422);
