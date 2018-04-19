@@ -87,6 +87,7 @@ server.post('/signup/guiding-company', (req, res) => {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
     } else {
+      console.log(newCompany);
       res.json(newCompany);
     }
   });
