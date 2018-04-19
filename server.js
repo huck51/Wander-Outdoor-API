@@ -60,6 +60,7 @@ server.post('/signup/traveler', (req, res) => {
       res.status(422);
       res.json({ stack: err.stack, message: err.message});
     } else {
+      console.log(newTraveler);
       res.json(newTraveler);
     }
   });
