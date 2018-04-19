@@ -43,7 +43,7 @@ const CompanySchema = new Schema({
   },
   companyCode: {
     type: String,
-    default: code(),
+    default: code,
     unique: true,
   },
   guides: {
