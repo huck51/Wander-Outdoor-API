@@ -110,6 +110,20 @@ server.post('/signup/guiding-company', (req, res) => {
   });
 });
 
+server.post('/add-trip', (req, res) => {
+  const { name, location, description, price, company } = req.body;
+  const newTrip = new Trip({ name, location, description, price, company });
+  newTrip.save((err, newTrip) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      console.log(newTrip);
+      res.json(newTrip);
+    }
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Servs up dude ${PORT}`);
 });
