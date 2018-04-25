@@ -85,7 +85,7 @@ server.post('/login', (req, res) => {
       res.json({ loggedIn: false });
     } else {
       console.log(user);
-      if (user[0].username === username && user[0].password === password) {
+      if (user.length > 0 && user[0].username === username && user[0].password === password) {
         res.json({ loggedIn: true });
       } else {
         res.json({ loggedIn: false });
