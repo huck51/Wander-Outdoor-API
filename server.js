@@ -79,14 +79,13 @@ server.post('/add-trip', (req, res) => {
 });
 
 server.post('/login', (req, res) => {
-  console.log(req.body);
   const { username, password } = req.body;
   Traveler.find({ username }, (err, user) => {
     if (err) {
       res.json({ loggedIn: false });
     } else {
       console.log(user);
-      if (user.username === username && user.password === password) {
+      if (user[0].username === username && user[0].password === password) {
         res.json({ loggedIn: true });
       } else {
         res.json({ loggedIn: false });
