@@ -64,6 +64,37 @@ server.get('/results', (req, res) => {
   })
 });
 
+server.post('/add-trip', (req, res) => {
+  const { name, location, description, price, company } = req.body;
+  const newTrip = new Trip({ name, location, description, price, company });
+  newTrip.save((err, newTrip) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      console.log(newTrip);
+      res.json(newTrip);
+    }
+  });
+});
+
+server.post('/login', (req, res) => {
+  console.log(req.body);
+  const { username, password } = req.body;
+  Traveler.find({ username }, (err, user) => {
+    if (err) {
+      res.json({ loggedIn: false });
+    } else {
+      console.log(user);
+      if (user.username === username && user.password === password) {
+        res.json({ loggedIn: true });
+      } else {
+        res.json({ loggedIn: false });
+      }
+    }
+  });
+});
+
 server.post('/signup/traveler', (req, res) => {
   const { firstName, lastName, DOB, email, phone, username, password } = req.body;
   const newTraveler = new Traveler({ firstName, lastName, DOB, email, phone, username, password });
@@ -106,20 +137,6 @@ server.post('/signup/guiding-company', (req, res) => {
     } else {
       console.log(newCompany);
       res.json(newCompany);
-    }
-  });
-});
-
-server.post('/add-trip', (req, res) => {
-  const { name, location, description, price, company } = req.body;
-  const newTrip = new Trip({ name, location, description, price, company });
-  newTrip.save((err, newTrip) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      console.log(newTrip);
-      res.json(newTrip);
     }
   });
 });
