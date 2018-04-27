@@ -147,6 +147,7 @@ server.delete('/remove-guide', (req, res) => {
     if (err) {
       return res.status(500).send(err);
     } else {
+      console.log(guide);
       res.status(200).send(guide);
     }
   });
