@@ -52,6 +52,16 @@ server.get('/guiding-companies', (req, res) => {
   });
 });
 
+server.get('/trips', (req, res) => {
+  Trip.find({}, (err, allTrips) => {
+    if (err) {
+      return res.status(422).send(err);
+    } else {
+      res.status(200).send(allTrips);
+    }
+  });
+});
+
 server.get('/results', (req, res) => {
   Company.find({}, (err, allCompanies) => {
     if (err) {
