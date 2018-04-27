@@ -142,7 +142,7 @@ server.post('/signup/guiding-company', (req, res) => {
 
 server.delete('/remove-guide', (req, res) => {
   const { id } = req.body;
-  console.log(id);
+  console.log(req.body);
   Guide.findByIdAndRemove(id, (err, guide) => {
     if (err) {
       return res.status(500).send(err);
