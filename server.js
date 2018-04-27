@@ -163,6 +163,17 @@ server.post('/remove-guide', (req, res) => {
   });
 });
 
+server.post('/remove-trip', (req, res) => {
+  const { id } = req.body;
+  Trip.findByIdAndRemove(id, (err, trip) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      res.status(200).send(trip);
+    }
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Servs up dude ${PORT}`);
 });
