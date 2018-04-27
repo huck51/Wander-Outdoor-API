@@ -9,7 +9,6 @@ const TripSchema = new Schema({
   company: {
     type: String,
     default: 'Wild America Guiding Co.'
-    required: true,
   },
   location: {
     type: String,
