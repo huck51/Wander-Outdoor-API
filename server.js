@@ -140,6 +140,18 @@ server.post('/signup/guiding-company', (req, res) => {
   });
 });
 
+server.delete('/remove-guide', (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+  Guide.findByIdAndRemove({id}, (err, guide) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      res.status(200).send(guide);
+    }
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Servs up dude ${PORT}`);
 });
