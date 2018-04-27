@@ -57,7 +57,7 @@ server.get('/trips', (req, res) => {
     if (err) {
       return res.status(422).send(err);
     } else {
-      res.status(200).send(allTrips);
+      return res.status(200).send(allTrips);
     }
   });
 });
