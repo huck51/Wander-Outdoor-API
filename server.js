@@ -28,10 +28,10 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
-server.get('/guide/:id', (req, res) => {
+server.get('/company/:id', (req, res) => {
   const _id = req.params;
   console.log(_id);
-  Guide.find({_id}, (err, guide) => {
+  Company.find(_id, (err, guide) => {
     if (err) {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
