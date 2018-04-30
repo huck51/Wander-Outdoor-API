@@ -30,7 +30,7 @@ server.get('/', (req, res) => {
 
 server.get('/company/:id', (req, res) => {
   const { companyName } = req.params;
-  console.log(id);
+  console.log(companyName);
   Company.findOne({ companyName }, (err, company) => {
     if (err) {
       console.error(err);
