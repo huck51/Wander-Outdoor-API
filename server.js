@@ -31,13 +31,13 @@ server.get('/', (req, res) => {
 server.get('/company/:id', (req, res) => {
   const _id = req.params;
   console.log(_id);
-  Company.find(_id, (err, guide) => {
+  Company.find(_id, (err, company) => {
     if (err) {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
     } else {
-      console.log(guide);
-      return res.status(200).send(guide);
+      console.log(company);
+      return res.status(200).send(company);
     }
   });
 });
