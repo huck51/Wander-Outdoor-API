@@ -28,6 +28,17 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
+server.get('/guide/:id', (req, res) => {
+  const id = req.params;
+  Guide.findById(id, (err, guide) => {
+    if (err) {
+      return res.status(422).json({stack: err.stack, message: err.message});
+    } else {
+      return res.status(200).send(guide);
+    }
+  });
+});
+
 server.get('/guides', (req, res) => {
   Guide.find({}, (err, allGuides) => {
     if (err) {
