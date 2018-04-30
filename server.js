@@ -36,6 +36,7 @@ server.get('/guide/:id', (req, res) => {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
     } else {
+      console.log(guide);
       return res.status(200).send(guide);
     }
   });
