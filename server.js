@@ -33,6 +33,7 @@ server.get('/guide/:id', (req, res) => {
   console.log(id);
   Guide.findOne({_id: id}, (err, guide) => {
     if (err) {
+      console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
     } else {
       return res.status(200).send(guide);
