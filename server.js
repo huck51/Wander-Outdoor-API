@@ -30,7 +30,7 @@ server.get('/', (req, res) => {
 
 server.get('/guide/:id', (req, res) => {
   const _id = req.params;
-  console.log(id);
+  console.log(_id);
   Guide.findOne({_id}, (err, guide) => {
     if (err) {
       console.error(err);
