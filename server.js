@@ -28,7 +28,7 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
-server.get('/company/:id', (req, res) => {
+server.get('/company/:companyName', (req, res) => {
   const { companyName } = req.params;
   console.log(companyName);
   Company.findOne({ companyName }, (err, company) => {
