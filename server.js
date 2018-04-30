@@ -29,9 +29,9 @@ server.get('/', (req, res) => {
 });
 
 server.get('/company/:id', (req, res) => {
-  const _id = req.params;
-  console.log(_id);
-  Company.find({id: _id}, (err, company) => {
+  const { id } = req.params;
+  console.log(id);
+  Company.find(id, (err, company) => {
     if (err) {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
