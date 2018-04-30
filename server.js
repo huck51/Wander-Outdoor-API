@@ -54,6 +54,17 @@ server.get('/guides', (req, res) => {
   });
 });
 
+server.get('/guides/:username', (req, res) => {
+  const { username } = req.params;
+  Guide.find({ username }, (err, guide) => {
+    if (err) {
+      res.status(422).json({ stack: err.stack, message: err.message });
+    } else {
+      res.status(200).send(guide);
+    }
+  });
+});
+
 server.get('/guiding-companies', (req, res) => {
   Company.find({}, (err, allCompanies) => {
     if (err) {
