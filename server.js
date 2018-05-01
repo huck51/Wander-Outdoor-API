@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Pwgen = require('pwgen');
 const cors = require('cors');
 const PORT = process.env.PORT || 5001;
 const Traveler = require('./Models/travelerModel');
@@ -9,6 +10,10 @@ const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
 
 const server = express();
+
+const pwgen = new Pwgen();
+pwgen.includeNumber = true;
+pwgen.maxLength = 15;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI);
