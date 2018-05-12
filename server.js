@@ -14,9 +14,13 @@ const server = express();
 const pwgen = new Pwgen();
 pwgen.includeNumber = true;
 pwgen.maxLength = 15;
+// pwgen.generate();
 
+const mongOptions = {
+  poolSize: 10,
+}
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, mongOptions);
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
