@@ -11,10 +11,6 @@ const Trip = require('./Models/tripModel');
 
 const server = express();
 
-const pwgen = new Pwgen();
-pwgen.includeNumber = true;
-pwgen.maxLength = 15;
-// pwgen.generate();
 
 const mongOptions = {
   poolSize: 10,
