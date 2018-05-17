@@ -24,6 +24,7 @@
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.12",
     "nodemon": "^1.17.3",
-    "pwgen": "^0.1.6"
+    "pwgen": "^0.1.6",
+    "universal-cookie": "^2.1.2"
   }
 }
