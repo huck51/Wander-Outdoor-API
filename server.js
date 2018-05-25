@@ -214,7 +214,19 @@ server.post('/signup-newuser', (req, res) => {
     }
     if (newUser) {
       console.log(newUser);
-      res.json(newUser);
+      res.status(200).json(newUser);
+    }
+  });
+});
+
+server.put('/update-profile', (req, res) => {
+  const { id, updateObject } = req.body;
+  User.findByIdAndUpdate(id, updateObject, (err, updatedUser) => {
+    if (err) {
+      res.status(422).send(err);
+    }
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
     }
   });
 });
