@@ -34,6 +34,19 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
+server.get('/find-user', (req, res) => {
+  const { id } = req.body;
+  User.findById(id, (err, foundUser) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    if (foundUser) {
+      console.log(foundUser);
+      return res.status(200).json(foundUser);
+    }
+  });
+});
+
 server.get('/company/:companyName', (req, res) => {
   const { companyName } = req.params;
   console.log(companyName);
