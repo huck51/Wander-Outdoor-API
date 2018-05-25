@@ -8,6 +8,7 @@ const Traveler = require('./Models/travelerModel');
 const Guide = require('./Models/guideModel');
 const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
+const User = require('./Models/userModel');
 
 const server = express();
 
@@ -200,6 +201,20 @@ server.post('/remove-trip', (req, res) => {
       return res.status(500).send(err);
     } else {
       res.status(200).send(trip);
+    }
+  });
+});
+
+server.post('/signup-newuser', (req, res) => {
+  const { id, email } = req.body;
+  const newUser = new User({ id, email });
+  newUser.save((err, newUser) => {
+    if (err) {
+      res.status(422).send(err);
+    }
+    if (newUser) {
+      console.log(newUser);
+      res.json(newUser);
     }
   });
 });
