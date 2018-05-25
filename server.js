@@ -226,6 +226,7 @@ server.put('/update-profile', (req, res) => {
       res.status(422).send(err);
     }
     if (updatedUser) {
+      console.log(updatedUser);
       res.status(200).json(updatedUser);
     }
   });
