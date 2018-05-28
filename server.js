@@ -9,6 +9,7 @@ const Guide = require('./Models/guideModel');
 const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
+const Message = require('./Models/message');
 
 const server = express();
 
@@ -228,6 +229,19 @@ server.post('/signup-newuser', (req, res) => {
     if (newUser) {
       console.log(newUser);
       res.status(200).json(newUser);
+    }
+  });
+});
+
+server.post('/contact-message', (req, res) => {
+  const { name, email, message } = req.body;
+  const newMessage = new Message({ name, email, message });
+  newMessage.save((err, newMessage) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    if (newMessage) {
+      return res.status(200).send(newMessage);
     }
   });
 });
