@@ -236,11 +236,13 @@ server.post('/signup-newuser', (req, res) => {
 server.post('/contact-message', (req, res) => {
   const { name, email, message } = req.body;
   const newMessage = new Message({ name, email, message });
+  console.log(newMessage);
   newMessage.save((err, newMessage) => {
     if (err) {
       return res.status(422).send(err);
     }
     if (newMessage) {
+      console.log(newMessage);
       return res.status(200).send(newMessage);
     }
   });
