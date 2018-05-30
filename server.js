@@ -9,7 +9,7 @@ const Guide = require('./Models/guideModel');
 const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
-const Message = require('./Models/message');
+const Message = require('./Models/messageModel');
 
 const server = express();
 
