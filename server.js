@@ -37,7 +37,7 @@ server.get('/', (req, res) => {
 
 server.get('/find-user', (req, res) => {
   const { id } = req.body;
-  User.findById(id, (err, foundUser) => {
+  User.findOne(id, (err, foundUser) => {
     if (err) {
       return res.status(422).send(err);
     }
@@ -250,8 +250,8 @@ server.post('/contact-message', (req, res) => {
 
 server.post('/update-profile', (req, res) => {
   console.log('updateprofile');
-  const { id, updateObject } = req.body;
-  User.findByIdAndUpdate(id, updateObject, (err, updatedUser) => {
+  const { updateObject } = req.body;
+  User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
       res.status(422).send(err);
     }
