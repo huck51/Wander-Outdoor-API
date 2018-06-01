@@ -22,13 +22,13 @@ mongoose.connect(process.env.MONGODB_URI, mongOptions);
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
-
+/*
 server.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "https://wander-outdoor-temp.herokuapp.com/");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
+*/
 server.use(cors());
 
 server.get('/', (req, res) => {
