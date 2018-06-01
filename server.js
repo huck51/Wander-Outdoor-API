@@ -25,7 +25,7 @@ server.use(bodyParser.urlencoded({extended: true}));
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    
+
     next();
 });
 
@@ -249,7 +249,7 @@ server.post('/contact-message', (req, res) => {
 });
 
 server.post('/update-profile', (req, res) => {
-  console.log('updateprofile'):
+  console.log('updateprofile');
   const { id, updateObject } = req.body;
   User.findByIdAndUpdate(id, updateObject, (err, updatedUser) => {
     if (err) {
