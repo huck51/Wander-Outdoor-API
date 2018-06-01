@@ -252,7 +252,7 @@ server.post('/update-profile', (req, res) => {
   console.log('updateprofile');
   const { updateObject } = req.body;
   console.log(updateObject);
-  conosle.log(req.body);
+  console.log(req.body);
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
       res.status(422).send(err);
