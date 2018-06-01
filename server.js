@@ -250,7 +250,26 @@ server.post('/contact-message', (req, res) => {
 
 server.post('/update-profile', (req, res) => {
   console.log('updateprofile');
-  const { updateObject } = req.body;
+  const {
+    firstName,
+    lastName,
+    DOB,
+    email,
+    phone,
+    roleGroup,
+    imageFile,
+    id
+  } = req.body;
+  const updateObject = {
+    firstName,
+    lastName,
+    DOB,
+    email,
+    phone,
+    roleGroup,
+    imageFile,
+    id
+  };
   console.log(updateObject);
   console.log(req.body);
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
