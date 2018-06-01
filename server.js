@@ -27,6 +27,7 @@ server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.setHeader('Access-Control-Allow-Methods', 'DELETE, GET, OPTIONS, POST, PUT');
+    res.setHeader('Vary', 'Origin');
     next();
 });
 
