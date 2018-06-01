@@ -25,9 +25,7 @@ server.use(bodyParser.urlencoded({extended: true}));
 
 server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.setHeader('Access-Control-Allow-Methods', 'DELETE, GET, OPTIONS, POST, PUT');
-    res.setHeader('Vary', 'Origin');
+    
     next();
 });
 
@@ -251,6 +249,7 @@ server.post('/contact-message', (req, res) => {
 });
 
 server.post('/update-profile', (req, res) => {
+  console.log('updateprofile'):
   const { id, updateObject } = req.body;
   User.findByIdAndUpdate(id, updateObject, (err, updatedUser) => {
     if (err) {
