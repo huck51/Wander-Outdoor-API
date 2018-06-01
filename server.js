@@ -249,7 +249,7 @@ server.post('/contact-message', (req, res) => {
   });
 });
 
-server.put('/update-profile', (req, res) => {
+server.post('/update-profile', (req, res) => {
   const { id, updateObject } = req.body;
   User.findByIdAndUpdate(id, updateObject, (err, updatedUser) => {
     if (err) {
