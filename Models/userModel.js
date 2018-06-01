@@ -33,7 +33,7 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  picture: {
+  imageFile: {
     data: Buffer,
     contentType: String,
   },
