@@ -221,7 +221,7 @@ server.post('/remove-trip', (req, res) => {
 
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
-  User.findOne(id, (err, foundUser) => {
+  User.findOne({ id }, (err, foundUser) => {
     if (err) {
       console.log(err);
       const newUser = new User({ id, email });
