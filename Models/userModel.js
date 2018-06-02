@@ -53,6 +53,9 @@ const UserSchema = new Schema({
   rating: {
     type: Number,
   },
+  roleGroup: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
