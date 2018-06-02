@@ -236,7 +236,7 @@ server.post('/signup-newuser', (req, res) => {
       });
     }
     if (foundUser) {
-      res.status(200).json(newUser);
+      res.status(200).json(foundUser);
     }
   })
 });
