@@ -221,16 +221,24 @@ server.post('/remove-trip', (req, res) => {
 
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
-  const newUser = new User({ id, email });
-  newUser.save((err, newUser) => {
+  User.findOne(id, (err, foundUser) => {
     if (err) {
-      res.status(422).send(err);
+      console.log(err);
+      const newUser = new User({ id, email });
+      newUser.save((err, newUser) => {
+        if (err) {
+          res.status(422).send(err);
+        }
+        if (newUser) {
+          console.log(newUser);
+          res.status(200).json(newUser);
+        }
+      });
     }
-    if (newUser) {
-      console.log(newUser);
+    if (foundUser) {
       res.status(200).json(newUser);
     }
-  });
+  })
 });
 
 server.post('/contact-message', (req, res) => {
