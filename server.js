@@ -47,6 +47,11 @@ server.post('/cloudinary', (req, res) => {
   console.log(params_to_sign);
   const sig = cloudinary.utils.api_sign_request(params_to_sign, process.env.CLOUDINARY_API_SECRET);
   console.log(sig);
+  if (sig) {
+    res.status(200).json(sig);
+  } else {
+    res.status(422);
+  }
 });
 
 server.get('/find-user', (req, res) => {
