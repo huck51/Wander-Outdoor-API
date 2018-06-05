@@ -41,8 +41,10 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
-server.get('/cloudinary', (req, res) => {
+server.post('/cloudinary', (req, res) => {
   const params_to_sign = req.body.paramsToSign;
+  const params_to_sign.timestamp = Date.now();
+  console.log(params_to_sign);
   api_sign_request = function(params_to_sign, process.env.CLOUDINARY_API_SECRET);
   console.log(api_sign_request);
 });
