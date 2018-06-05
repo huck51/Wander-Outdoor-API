@@ -54,7 +54,10 @@ const UserSchema = new Schema({
   },
   roleGroup: {
     type: String,
-  }
+  },
+  bio: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
