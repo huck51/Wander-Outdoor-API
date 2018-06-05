@@ -17,7 +17,7 @@ const server = express();
 cloudinary.config({
   cloud_name: 'wander-outdoor',
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const mongOptions = {
@@ -39,6 +39,12 @@ server.use(cors());
 
 server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
+});
+
+server.get('/cloudinary', (req, res) => {
+  const params_to_sign = req.body.paramsToSign;
+  api_sign_request = function(params_to_sign, process.env.CLOUDINARY_API_SECRET);
+  console.log(api_sign_request);
 });
 
 server.get('/find-user', (req, res) => {
