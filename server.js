@@ -14,6 +14,11 @@ const Message = require('./Models/messageModel');
 
 const server = express();
 
+cloudinary.config({
+  cloud_name: 'wander-outdoor',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
 
 const mongOptions = {
   poolSize: 10,
