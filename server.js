@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Pwgen = require('pwgen');
+const cloudinary = require('cloudinary');
 const cors = require('cors');
 const PORT = process.env.PORT || 5001;
 const Traveler = require('./Models/travelerModel');
