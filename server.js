@@ -287,6 +287,9 @@ server.post('/update-profile', (req, res) => {
     picture,
     id,
     bio,
+    companyCode,
+    city,
+    state,
   } = req.body;
   const updateObject = {
     firstName,
@@ -298,6 +301,9 @@ server.post('/update-profile', (req, res) => {
     picture,
     id,
     bio,
+    companyCode,
+    city,
+    state,
   };
   console.log(updateObject);
   console.log(req.body);

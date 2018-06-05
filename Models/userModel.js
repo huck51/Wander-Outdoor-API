@@ -58,6 +58,12 @@ const UserSchema = new Schema({
   bio: {
     type: String,
   },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
