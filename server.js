@@ -284,7 +284,7 @@ server.post('/update-profile', (req, res) => {
     email,
     phone,
     roleGroup,
-    imageFile,
+    picture,
     id
   } = req.body;
   const updateObject = {
@@ -294,7 +294,7 @@ server.post('/update-profile', (req, res) => {
     email,
     phone,
     roleGroup,
-    imageFile,
+    picture,
     id
   };
   console.log(updateObject);

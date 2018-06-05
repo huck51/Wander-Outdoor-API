@@ -33,9 +33,8 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
   },
-  imageFile: {
-    data: Buffer,
-    contentType: String,
+  picture: {
+    type: String,
   },
   stats: {},
   tripsQualified: {
