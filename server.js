@@ -45,8 +45,8 @@ server.post('/cloudinary', (req, res) => {
   const params_to_sign = req.body.paramsToSign;
   params_to_sign.timestamp = Date.now();
   console.log(params_to_sign);
-  api_sign_request = function(params_to_sign, process.env.CLOUDINARY_API_SECRET);
-  console.log(api_sign_request);
+  const sig = cloudinary.utils.api_sign_request(params_to_sign, process.env.CLOUDINARY_API_SECRET);
+  console.log(sig);
 });
 
 server.get('/find-user', (req, res) => {
