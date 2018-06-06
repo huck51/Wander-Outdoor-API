@@ -68,7 +68,7 @@ const UserSchema = new Schema({
   },
   state: {
     type: String,
-  }
+  },
   reviews: {
     type: [Object],
   },
