@@ -7,9 +7,18 @@ const CompanySchema = new Schema({
     type: String,
     required: true,
   },
-  companyAddress: {
+  streetAddress: {
     type: String,
     required: true,
+  },
+  city: {
+    type: String,
+  },
+  stateName: {
+    type: String,
+  },
+  zipCode: {
+    type: String,
   },
   companyPhone: {
     type: String,
@@ -31,10 +40,6 @@ const CompanySchema = new Schema({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   companyCode: {
     type: String,
     unique: true,
@@ -45,27 +50,23 @@ const CompanySchema = new Schema({
   trips: {
     type: [String],
   },
-  about: {
+  bio: {
     type: String,
   },
   locations: {
     type: [String],
-    // required: true,
   },
   permits: {
     type: [String],
-    // required: true,
   },
   rating: {
     type: Number,
   },
   activities: {
     type: [String],
-    // required: true,
   },
-  logo: {
-    data: Buffer,
-    contentType: String,
+  picture: {
+    Type: String,
   },
 });
 
