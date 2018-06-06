@@ -8,7 +8,6 @@ const TripSchema = new Schema({
   },
   company: {
     type: String,
-    default: 'Wild America Guiding Co.'
   },
   location: {
     type: String,
@@ -28,9 +27,8 @@ const TripSchema = new Schema({
   rating: {
     type: Number,
   },
-  photo: {
-    data: Buffer,
-    contentType: String,
+  picture: {
+    type: String,
   },
   stats: {},
 });
