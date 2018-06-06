@@ -50,7 +50,12 @@ const UserSchema = new Schema({
     type: [String],
   },
   rating: {
-    type: Number,
+    rate: {
+      type: Number,
+    },
+    numberOfRatings: {
+      type: Number,
+    },
   },
   roleGroup: {
     type: String,
@@ -64,6 +69,9 @@ const UserSchema = new Schema({
   state: {
     type: String,
   }
+  reviews: {
+    type: [Object],
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
