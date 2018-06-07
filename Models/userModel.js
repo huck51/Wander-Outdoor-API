@@ -72,6 +72,9 @@ const UserSchema = new Schema({
   reviews: {
     type: [Object],
   },
+  likes: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -34,6 +34,12 @@ const TripSchema = new Schema({
     type: String,
   },
   stats: {},
+  reviews: {
+    type: [String],
+  },
+  likes: {
+    type: Number,
+  },
 });
 
 

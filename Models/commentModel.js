@@ -12,6 +12,9 @@ const CommentModel = new Schema({
   date: {
     type: Date,
   },
+  likes: {
+    type: Number,
+  },
 });
 
 

@@ -68,6 +68,12 @@ const CompanySchema = new Schema({
   picture: {
     Type: String,
   },
+  reviews: {
+    type: [String],
+  },
+  likes: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
