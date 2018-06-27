@@ -75,6 +75,9 @@ const UserSchema = new Schema({
   likes: {
     type: Number,
   },
+  chex: {
+    type: [String],
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

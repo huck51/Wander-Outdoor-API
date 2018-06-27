@@ -40,7 +40,12 @@ const TripSchema = new Schema({
   likes: {
     type: Number,
   },
+  chex:{
+    type: [String],
+  },
 });
 
 
 module.exports = mongoose.model('Trip', TripSchema);
+
+// field: [{type: Schema.Types.ObjectId, ref: Model}]
