@@ -43,6 +43,9 @@ const TripSchema = new Schema({
   chex:{
     type: [String],
   },
+  tags: {
+    type: [String],
+  },
 });
 
 

@@ -77,6 +77,9 @@ const CompanySchema = new Schema({
   chex: {
     type: [String],
   },
+  tags: {
+    type: [String],
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

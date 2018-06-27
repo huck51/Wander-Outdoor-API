@@ -78,6 +78,9 @@ const UserSchema = new Schema({
   chex: {
     type: [String],
   },
+  tags: {
+    type: [String],
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
