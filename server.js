@@ -139,8 +139,28 @@ server.get('/results', (req, res) => {
 });
 
 server.post('/add-trip', (req, res) => {
-  const { name, location, description, price, company } = req.body;
-  const newTrip = new Trip({ name, location, description, price, company });
+  const {
+    name,
+    city,
+    stateName,
+    description,
+    price,
+    company,
+    picture,
+    chex,
+  } = req.body;
+  const tags = [name, city, stateName, price, company].concat(chex);
+  const newTrip = new Trip({
+    name,
+    city,
+    stateName,
+    description,
+    price,
+    company,
+    picture,
+    chex,
+    tags
+  });
   newTrip.save((err, newTrip) => {
     if (err) {
       res.status(422);
@@ -212,9 +232,11 @@ server.post('/signup/guiding-company', (req, res) => {
     jobTitle,
     contactPhone,
     contactEmail,
-    bio
+    bio,
+    chex,
   } = req.body;
   const companyCode = companyName + code;
+  const tags = [companyName, city, stateName, zipCode].concat(chex);
   const newCompany = new Company({
     companyName,
     streetAddress,
@@ -227,7 +249,9 @@ server.post('/signup/guiding-company', (req, res) => {
     contactPhone,
     contactEmail,
     companyCode,
-    bio
+    bio,
+    chex,
+    tags,
   });
   newCompany.save((err, newCompany) => {
     if (err) {
@@ -316,7 +340,9 @@ server.post('/update-profile', (req, res) => {
     companyCode,
     city,
     state,
+    chex,
   } = req.body;
+  const tags = [firstName, lastName, roleGroup, city, state].concat(chex);
   const updateObject = {
     firstName,
     lastName,
@@ -330,6 +356,8 @@ server.post('/update-profile', (req, res) => {
     companyCode,
     city,
     state,
+    chex,
+    tags,
   };
   console.log(updateObject);
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
