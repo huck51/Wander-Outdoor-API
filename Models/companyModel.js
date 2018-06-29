@@ -80,6 +80,10 @@ const CompanySchema = new Schema({
   tags: {
     type: [String],
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
