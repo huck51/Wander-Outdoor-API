@@ -234,6 +234,7 @@ server.post('/signup/guiding-company', (req, res) => {
     contactEmail,
     bio,
     chex,
+    picture,
   } = req.body;
   const companyCode = companyName + code;
   const tags = [companyName, city, stateName, zipCode].concat(chex);
@@ -252,6 +253,7 @@ server.post('/signup/guiding-company', (req, res) => {
     bio,
     chex,
     tags,
+    picture,
   });
   newCompany.save((err, newCompany) => {
     if (err) {

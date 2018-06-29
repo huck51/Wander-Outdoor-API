@@ -66,7 +66,7 @@ const CompanySchema = new Schema({
     type: [String],
   },
   picture: {
-    Type: String,
+    type: String,
   },
   reviews: {
     type: [String],
