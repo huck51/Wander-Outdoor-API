@@ -304,6 +304,7 @@ server.post('/signup-newuser', (req, res) => {
           return res.status(422).send(err);
         }
         if (newUser) {
+          console.log('if err');
           console.log(newUser);
           return res.status(200).json(newUser);
         }
@@ -319,6 +320,7 @@ server.post('/signup-newuser', (req, res) => {
           return res.status(422).send(err);
         }
         if (newUser) {
+          console.log('!foundUser');
           console.log(newUser);
           return res.status(200).json(newUser);
         }
