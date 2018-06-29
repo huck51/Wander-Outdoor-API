@@ -216,6 +216,7 @@ server.post('/signup/guide', (req, res) => {
 });
 
 server.post('/signup/guiding-company', (req, res) => {
+
   const rando = (min, max) => {
     return Math.random() * (max - min) + min;
   }
@@ -235,33 +236,43 @@ server.post('/signup/guiding-company', (req, res) => {
     bio,
     chex,
     picture,
+    owner,
   } = req.body;
   const companyCode = companyName + code;
   const tags = [companyName, city, stateName, zipCode].concat(chex);
-  const newCompany = new Company({
-    companyName,
-    streetAddress,
-    city,
-    stateName,
-    zipCode,
-    companyPhone,
-    contactName,
-    jobTitle,
-    contactPhone,
-    contactEmail,
-    companyCode,
-    bio,
-    chex,
-    tags,
-    picture,
-  });
-  newCompany.save((err, newCompany) => {
+  User.findOne({ id: owner }, (err, foundUser) => {
     if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      console.log(newCompany);
-      res.json(newCompany);
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (foundUser) {
+      const newCompany = new Company({
+        companyName,
+        streetAddress,
+        city,
+        stateName,
+        zipCode,
+        companyPhone,
+        contactName,
+        jobTitle,
+        contactPhone,
+        contactEmail,
+        companyCode,
+        bio,
+        chex,
+        tags,
+        picture,
+        owner: foundUser._id
+      });
+      newCompany.save((err, newCompany) => {
+        if (err) {
+          res.status(422);
+          res.json({ stack: err.stack, message: err.message });
+        } else {
+          console.log(newCompany);
+          res.json(newCompany);
+        }
+      });
     }
   });
 });
