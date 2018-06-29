@@ -306,6 +306,18 @@ server.post('/signup-newuser', (req, res) => {
         }
       });
     }
+    if(!foundUser) {
+      const newUser = new User({ id, email });
+      newUser.save((err, newUser) => {
+        if (err) {
+          res.status(422).send(err);
+        }
+        if (newUser) {
+          console.log(newUser);
+          res.status(200).json(newUser);
+        }
+      });
+    }
     if (foundUser) {
       console.log(foundUser);
       res.status(200).json(foundUser);
