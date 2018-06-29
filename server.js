@@ -301,32 +301,17 @@ server.post('/signup-newuser', (req, res) => {
         if (err) {
           console.log('if err');
           console.log(err);
-          res.status(422).send(err);
+          return res.status(422).send(err);
         }
         if (newUser) {
           console.log(newUser);
-          res.status(200).json(newUser);
-        }
-      });
-    }
-    if(!foundUser) {
-      const newUser = new User({ id, email });
-      console.log(newUser);
-      newUser.save((err, newUser) => {
-        if (err) {
-          console.log('if !foundUser');
-          console.log(err);
-          res.status(422).send(err);
-        }
-        if (newUser) {
-          console.log(newUser);
-          res.status(200).json(newUser);
+          return res.status(200).json(newUser);
         }
       });
     }
     if (foundUser) {
       console.log(foundUser);
-      res.status(200).json(foundUser);
+      return res.status(200).json(foundUser);
     }
   })
 });
