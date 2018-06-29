@@ -81,6 +81,28 @@ server.get('/company/:companyName', (req, res) => {
   });
 });
 
+server.post('/dashboard-companies', (req, res) => {
+  const { id } = req.body;
+  User.findOne({ id }, (err, foundUser) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (foundUser) {
+      Company.find({ owner: foundUser._id }, (err, companies) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+        if (companies) {
+          console.log(companies);
+          return res.status(200).json(companies);
+        }
+      });
+    }
+  });
+});
+
 server.get('/guides', (req, res) => {
   Guide.find({}, (err, allGuides) => {
     if (err) {
