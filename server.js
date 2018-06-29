@@ -83,12 +83,14 @@ server.get('/company/:companyName', (req, res) => {
 
 server.post('/dashboard-companies', (req, res) => {
   const { id } = req.body;
+  console.log(id);
   User.findOne({ id }, (err, foundUser) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
     if (foundUser) {
+      console.log('foundUser');
       Company.find({ owner: foundUser._id }, (err, companies) => {
         if (err) {
           console.log(err);
