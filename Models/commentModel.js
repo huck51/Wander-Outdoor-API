@@ -11,7 +11,8 @@ const CommentModel = new Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
+    default: new Date().toUTCString(),
   },
   likes: {
     type: Number,
