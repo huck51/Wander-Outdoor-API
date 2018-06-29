@@ -290,6 +290,8 @@ server.post('/remove-trip', (req, res) => {
 
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
+  console.log(id);
+  console.log(email);
   User.findOne({ id }, (err, foundUser) => {
     if (err) {
       console.log(err);
@@ -305,6 +307,7 @@ server.post('/signup-newuser', (req, res) => {
       });
     }
     if (foundUser) {
+      console.log(foundUser);
       res.status(200).json(foundUser);
     }
   })
