@@ -296,8 +296,11 @@ server.post('/signup-newuser', (req, res) => {
     if (err) {
       console.log(err);
       const newUser = new User({ id, email });
+      console.log(newUser);
       newUser.save((err, newUser) => {
         if (err) {
+          console.log('if err');
+          console.log(err);
           res.status(422).send(err);
         }
         if (newUser) {
@@ -308,8 +311,11 @@ server.post('/signup-newuser', (req, res) => {
     }
     if(!foundUser) {
       const newUser = new User({ id, email });
+      console.log(newUser);
       newUser.save((err, newUser) => {
         if (err) {
+          console.log('if !foundUser');
+          console.log(err);
           res.status(422).send(err);
         }
         if (newUser) {
