@@ -304,7 +304,7 @@ server.post('/signup/guiding-company', (req, res) => {
 server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
   updateObject.tags = [updateObject.companyName, updateObject.city, updateObject.stateName, updateObject.zipCode].concat(updateObject.chex);
-  Company.findOneAndUpdate({ id: updateObject.owner }, updateObject, (err, updatedCompany) => {
+  Company.findOneAndUpdate({ owner: updateObject.owner }, updateObject, (err, updatedCompany) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
