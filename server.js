@@ -301,6 +301,20 @@ server.post('/signup/guiding-company', (req, res) => {
   });
 });
 
+server.post('/update/guiding-company', (req, res) => {
+  const { updateObject } = req.body;
+  updateObject.tags = [updateObject.companyName, updateObject.city, updateObject.stateName, updateObject.zipCode].concat(updateObject.chex);
+  Company.findOneAndUpdate({ id: updateObject.owner }, updateObject, (err, updatedCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (updatedCompany) {
+      return res.status(200).json(updatedCompany);
+    }
+  });
+});
+
 server.post('/remove-guide', (req, res) => {
   const { id } = req.body;
   console.log(req.body);
