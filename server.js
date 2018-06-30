@@ -304,15 +304,24 @@ server.post('/signup/guiding-company', (req, res) => {
 server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
   updateObject.tags = [updateObject.companyName, updateObject.city, updateObject.stateName, updateObject.zipCode].concat(updateObject.chex);
-  const owner = updateObject.owner;
+  const id = updateObject.owner;
   delete updateObject.owner;
-  Company.findOneAndUpdate({ owner }, updateObject, (err, updatedCompany) => {
+  User.findOne({ id }, (err, foundOwner) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
-    if (updatedCompany) {
-      return res.status(200).json(updatedCompany);
+    if (foundOwner) {
+      const owner = foundOwner._id;
+      Company.findOneAndUpdate({ owner }, updateObject, (err, updatedCompany) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+        if (updatedCompany) {
+          return res.status(200).json(updatedCompany);
+        }
+      });
     }
   });
 });
