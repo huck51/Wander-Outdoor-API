@@ -56,6 +56,7 @@ server.post('/cloudinary', (req, res) => {
 
 server.get('/find-user', (req, res) => {
   const { id } = req.body;
+  console.log(id);
   User.findOne(id, (err, foundUser) => {
     if (err) {
       return res.status(422).send(err);
