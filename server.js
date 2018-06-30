@@ -106,7 +106,7 @@ server.post('/dashboard-companies', (req, res) => {
 });
 
 server.get('/guides', (req, res) => {
-  Guide.find({}, (err, allGuides) => {
+  User.find({ roleGroup: 'guide' }, (err, allGuides) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
@@ -240,7 +240,6 @@ server.post('/signup/guide', (req, res) => {
 });
 
 server.post('/signup/guiding-company', (req, res) => {
-
   const rando = (min, max) => {
     return Math.random() * (max - min) + min;
   }
