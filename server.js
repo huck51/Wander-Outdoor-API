@@ -151,6 +151,19 @@ server.get('/trips', (req, res) => {
   });
 });
 
+server.get('/trips/:company', (req, res) => {
+  const { company } = req.params;
+  Trip.find({ company }, (err, trips) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (trips) {
+      return res.status(200).json(trips);
+    }
+  }
+});
+
 server.get('/results', (req, res) => {
   Company.find({}, (err, allCompanies) => {
     if (err) {
