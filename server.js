@@ -161,7 +161,7 @@ server.get('/trips/:company', (req, res) => {
     if (trips) {
       return res.status(200).json(trips);
     }
-  }
+  });
 });
 
 server.get('/results', (req, res) => {
