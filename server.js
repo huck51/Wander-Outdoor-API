@@ -119,7 +119,7 @@ server.get('/guides', (req, res) => {
 });
 
 server.get('/guides/:company', (req, res) => {
-  const companyName = req.params;
+  const companyName = req.params.company;
   console.log(companyName);
   Company.findOne({ companyName }, (err, foundCompany) => {
     if (err) {
