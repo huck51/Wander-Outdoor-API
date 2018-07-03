@@ -118,6 +118,29 @@ server.get('/guides', (req, res) => {
   });
 });
 
+server.get('/guides/:company', (req, res) => {
+  const companyName = req.params;
+  console.log(companyName);
+  Company.findOne({ companyName }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (foundCompany) {
+      const { companyCode } = foundCompany;
+      User.find({ companyCode }, (err, companies) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+        if (companies) {
+          return res.status(200).json(companies):
+        }
+      });
+    }
+  });
+});
+
 server.get('/guides/:username', (req, res) => {
   const { username } = req.params;
   Guide.findOne({ username }, (err, guide) => {
