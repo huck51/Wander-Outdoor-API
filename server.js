@@ -134,7 +134,7 @@ server.get('/guides/:company', (req, res) => {
           return res.status(422).send(err);
         }
         if (companies) {
-          return res.status(200).json(companies):
+          return res.status(200).json(companies);
         }
       });
     }
