@@ -195,12 +195,13 @@ server.get('/trips/:company', (req, res) => {
 server.get('/results/:params', (req, res) => {
   console.log('hello');
   console.log(JSON.stringify(req.params));
+  console.log(JSON.stringify(req.params.params));
   Company.find({}, (err, allCompanies) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
     } else {
-      console.log(allCompanies);
+      // console.log(allCompanies);
       res.send(allCompanies);
     }
   })
