@@ -41,6 +41,11 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
+const searchAll = (tags) => {
+  models = [Company, User];
+  return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } })));
+};
+
 server.post('/cloudinary', (req, res) => {
   const params_to_sign = req.body.paramsToSign;
   params_to_sign.timestamp = Date.now();
@@ -189,7 +194,7 @@ server.get('/trips/:company', (req, res) => {
 
 server.get('/results/:params', (req, res) => {
   console.log('hello');
-  console.log(req.params);
+  console.log(JSON.stringify(req.params));
   Company.find({}, (err, allCompanies) => {
     if (err) {
       res.status(422);
