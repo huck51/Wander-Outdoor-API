@@ -188,6 +188,7 @@ server.get('/trips/:company', (req, res) => {
 });
 
 server.get('/results/:params', (req, res) => {
+  console.log('hello');
   console.log(req.params);
   Company.find({}, (err, allCompanies) => {
     if (err) {
