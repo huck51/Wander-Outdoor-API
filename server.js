@@ -46,7 +46,7 @@ const searchAll = (tags) => {
   const t = tags.pop();
   console.log(tags);
   console.log(t);
-  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': tags[t] }] })));
+  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] })));
 };
 
 server.post('/cloudinary', (req, res) => {
@@ -199,7 +199,6 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   const searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
-  console.log(searchParams);
   searchAll(searchParams)
   .then((result) => {
     const cat = result[0].concat(result[1]);
