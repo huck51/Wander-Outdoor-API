@@ -200,8 +200,9 @@ server.get('/results/:search', (req, res) => {
   console.log(searchParams);
   searchAll(searchParams)
   .then((result) => {
-    console.log(result);
-    res.status(200).json(result);
+    const cat = result[0].concat(result[1]);
+    console.log(cat);
+    res.status(200).json(cat);
   })
   .catch((error) => {
     console.log(error);
