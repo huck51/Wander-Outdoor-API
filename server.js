@@ -197,7 +197,7 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   console.log(search);
   const searchParams = search.toLowerCase().split('');
-  User.find({ 'tags': { $in: searchParams } }).
+  User.find({ tags: { $in: searchParams } }).
     then((result) => {
       console.log(result);
     }).
@@ -395,13 +395,10 @@ server.post('/remove-trip', (req, res) => {
 
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
-  console.log(id);
-  console.log(email);
   User.findOne({ id }, (err, foundUser) => {
     if (err) {
       console.log(err);
       const newUser = new User({ id, email });
-      console.log(newUser);
       newUser.save((err, newUser) => {
         if (err) {
           console.log('if err');
@@ -409,15 +406,12 @@ server.post('/signup-newuser', (req, res) => {
           return res.status(422).send(err);
         }
         if (newUser) {
-          console.log('if err');
-          console.log(newUser);
           return res.status(200).json(newUser);
         }
       });
     }
     if(!foundUser) {
       const newUser = new User({ id, email });
-      console.log(newUser);
       newUser.save((err, newUser) => {
         if (err) {
           console.log('if !foundUser');
@@ -425,14 +419,11 @@ server.post('/signup-newuser', (req, res) => {
           return res.status(422).send(err);
         }
         if (newUser) {
-          console.log('!foundUser');
-          console.log(newUser);
           return res.status(200).json(newUser);
         }
       });
     }
     if (foundUser) {
-      console.log(foundUser);
       return res.status(200).json(foundUser);
     }
   })
