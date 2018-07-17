@@ -161,7 +161,7 @@ server.get('/guides/:username', (req, res) => {
 });
 
 server.get('/guiding-companies', (req, res) => {
-  Company.find({}, (err, allCompanies) => {
+  Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1 }, (err, allCompanies) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
