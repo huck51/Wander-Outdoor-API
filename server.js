@@ -310,7 +310,7 @@ server.post('/signup/guiding-company', (req, res) => {
     owner,
   } = req.body;
   const companyCode = companyName + code;
-  const tags = [companyName, city, stateName, zipCode].concat(chex);
+  const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex);
   User.findOne({ id: owner }, (err, foundUser) => {
     if (err) {
       console.log(err);
