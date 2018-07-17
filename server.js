@@ -44,6 +44,8 @@ server.get('/', (req, res) => {
 const searchAll = (tags) => {
   models = [Company, User];
   const t = tags.pop();
+  console.log(tags);
+  console.log(t);
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': tags[t] }] })));
 };
 
@@ -194,9 +196,7 @@ server.get('/trips/:company', (req, res) => {
 });
 
 server.get('/results/:search', (req, res) => {
-  console.log('hello');
   const  { search } = req.params;
-  console.log(search);
   const searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
   console.log(searchParams);
