@@ -197,6 +197,7 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   console.log(search);
   const searchParams = search.toLowerCase().split(' ');
+  searchParams.push(searchParams.join(''));
   console.log(searchParams);
   searchAll(searchParams)
   .then((result) => {
