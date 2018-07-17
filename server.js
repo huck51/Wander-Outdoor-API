@@ -43,7 +43,8 @@ server.get('/', (req, res) => {
 
 const searchAll = (tags) => {
   models = [Company, User];
-  return Promise.all(models.map(model => model.find({ 'tags': { $all: tags } })));
+  const t = tags.length-1;
+  return Promise.all(models.map(model => model.find({ 'tags': { $all: tags, $in: tags[t] } })));
 };
 
 server.post('/cloudinary', (req, res) => {
