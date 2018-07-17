@@ -196,6 +196,7 @@ server.get('/trips/:company', (req, res) => {
 });
 
 server.get('/trips/:_id', (req, res) => {
+  console.log('hello');
   const { _id } = req.params;
   console.log(_id);
   Trip.find({ _id }, (err, trip) => {
