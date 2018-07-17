@@ -192,10 +192,10 @@ server.get('/trips/:company', (req, res) => {
   });
 });
 
-server.get('/results/:params', (req, res) => {
+server.get('/results/:search', (req, res) => {
   console.log('hello');
-  const { params } = req.params;
-  console.log(params);
+  const  search = req.params;
+  console.log(search);
   Company.find({}, (err, allCompanies) => {
     if (err) {
       res.status(422);
