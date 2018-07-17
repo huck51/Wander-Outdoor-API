@@ -194,7 +194,7 @@ server.get('/trips/:company', (req, res) => {
 
 server.get('/results/:search', (req, res) => {
   console.log('hello');
-  const  search = req.params;
+  const  { search } = req.params;
   console.log(search);
   Company.find({}, (err, allCompanies) => {
     if (err) {
