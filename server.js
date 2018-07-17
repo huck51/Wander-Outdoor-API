@@ -197,7 +197,7 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   console.log(search);
   const searchParams = search.toLowerCase().split('');
-  searchAll(searchParams).
+  User.find({ 'tags': { $in: searchParams } }).
     then((result) => {
       console.log(result);
     }).
