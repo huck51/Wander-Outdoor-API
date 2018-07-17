@@ -197,15 +197,16 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   console.log(search);
   const searchParams = search.split(' ');
-  console.log(searchParams)
-  User.find({ tags: { $in: searchParams } }, (err, results) => {
-    if (err) {
-      console.log(err);
-    }
-    if (results) {
-      console.log(results);
-    }
+  console.log(searchParams);
+  searchAll(searchParams)
+  .then((result) => {
+    console.log(result);
+    res.status(200).json(result);
   })
+  .catch((error) => {
+    console.log(error);
+  });
+
 });
 
 server.post('/add-trip', (req, res) => {
