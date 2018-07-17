@@ -196,7 +196,7 @@ server.get('/results/:search', (req, res) => {
   console.log('hello');
   const  { search } = req.params;
   console.log(search);
-  const searchParams = search.split(' ');
+  const searchParams = search.toLowerCase().split(' ');
   console.log(searchParams);
   searchAll(searchParams)
   .then((result) => {
