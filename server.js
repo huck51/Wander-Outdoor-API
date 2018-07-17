@@ -43,7 +43,7 @@ server.get('/', (req, res) => {
 
 const searchAll = (tags) => {
   models = [Company, User];
-  const t = tags.length-1;
+  const t = tags.pop();
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': tags[t] }] })));
 };
 
