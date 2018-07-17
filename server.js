@@ -196,15 +196,14 @@ server.get('/results/:search', (req, res) => {
   console.log('hello');
   const  { search } = req.params;
   console.log(search);
-  Company.find({}, (err, allCompanies) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      // console.log(allCompanies);
-      res.send(allCompanies);
-    }
-  })
+  const searchParams = search.toLowerCase().split('');
+  searchAll(searchParams).
+    then((result) => {
+      console.log(result);
+    }).
+    catch((err) => {
+      console.log(err);
+    });
 });
 
 server.post('/add-trip', (req, res) => {
