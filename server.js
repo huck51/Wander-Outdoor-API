@@ -350,7 +350,7 @@ server.post('/signup/guiding-company', (req, res) => {
 
 server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
-  updateObject.tags = [updateObject.companyName, updateObject.city, updateObject.stateName, updateObject.zipCode].concat(updateObject.chex);
+  updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode].concat(updateObject.chex);
   const id = updateObject.owner;
   delete updateObject.owner;
   User.findOne({ id }, (err, foundOwner) => {
@@ -465,7 +465,7 @@ server.post('/update-profile', (req, res) => {
     state,
     chex,
   } = req.body;
-  const tags = [firstName, lastName, roleGroup, city, state].concat(chex);
+  const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), state.toLowerCase()].concat(chex);
   const updateObject = {
     firstName,
     lastName,
