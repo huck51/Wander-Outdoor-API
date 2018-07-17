@@ -311,7 +311,7 @@ server.post('/signup/guiding-company', (req, res) => {
     owner,
   } = req.body;
   const companyCode = companyName + code;
-  const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex);
+  const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex.map(check => { return check.toLowerCase(); }));
   User.findOne({ id: owner }, (err, foundUser) => {
     if (err) {
       console.log(err);
@@ -351,7 +351,7 @@ server.post('/signup/guiding-company', (req, res) => {
 
 server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
-  updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode].concat(updateObject.chex);
+  updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode].concat(updateObject.chex.map(check => { return check.toLowerCase(); }));
   const id = updateObject.owner;
   delete updateObject.owner;
   User.findOne({ id }, (err, foundOwner) => {
