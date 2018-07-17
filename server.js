@@ -222,7 +222,7 @@ server.post('/add-trip', (req, res) => {
     picture,
     chex,
   } = req.body;
-  const tags = [name, city, stateName, price, company].concat(chex);
+  const tags = [name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const newTrip = new Trip({
     name,
     city,
@@ -351,7 +351,8 @@ server.post('/signup/guiding-company', (req, res) => {
 
 server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
-  updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode].concat(updateObject.chex.map(check => { return check.toLowerCase(); }));
+  updateObject.roleGroup = 'company';
+  updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode, 'company'].concat(updateObject.chex.map(check => { return check.toLowerCase(); }));
   const id = updateObject.owner;
   delete updateObject.owner;
   User.findOne({ id }, (err, foundOwner) => {
