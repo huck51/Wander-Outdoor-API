@@ -466,7 +466,7 @@ server.post('/update-profile', (req, res) => {
     state,
     chex,
   } = req.body;
-  const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), state.toLowerCase()].concat(chex);
+  const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), state.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const updateObject = {
     firstName,
     lastName,
