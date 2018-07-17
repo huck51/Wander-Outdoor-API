@@ -195,6 +195,19 @@ server.get('/trips/:company', (req, res) => {
   });
 });
 
+server.get('/trips/:_id', (req, res) => {
+  const { _id } = req.params;
+  Trip.find({ _id }, (err, trip) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (trip) {
+      return res.status(200).json(trip);
+    }
+  });
+});
+
 server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   const searchParams = search.toLowerCase().split(' ');
