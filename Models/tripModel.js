@@ -46,6 +46,10 @@ const TripSchema = new Schema({
   tags: {
     type: [String],
   },
+  roleGroup: {
+    type: String,
+    default: 'trip',
+  },
 });
 
 

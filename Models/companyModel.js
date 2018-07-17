@@ -84,6 +84,10 @@ const CompanySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  roleGroup: {
+    type: String,
+    default: 'company',
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
