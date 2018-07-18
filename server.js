@@ -195,11 +195,11 @@ server.get('/trips/:company', (req, res) => {
   });
 });
 
-server.get('/trips/:_id', (req, res) => {
+server.get('/trips/:id', (req, res) => {
   console.log('hello');
-  const { _id } = req.params;
-  console.log(_id);
-  Trip.find({ _id }, (err, trip) => {
+  const { id } = req.params;
+  console.log(id);
+  Trip.find({ _id: id }, (err, trip) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
