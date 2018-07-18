@@ -216,7 +216,7 @@ server.get('/results/:search', (req, res) => {
   searchParams.push(searchParams.join(' '));
   searchAll(searchParams)
   .then((result) => {
-    const cat = result[0].concat(result[1]);
+    const cat = result[0].concat(result[1]).concat(result[2]);
     console.log(cat);
     res.status(200).json(cat);
   })
