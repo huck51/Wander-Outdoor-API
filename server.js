@@ -199,7 +199,7 @@ server.get('/trips/:id', (req, res) => {
   console.log('hello');
   const { id } = req.params;
   console.log(id);
-  Trip.find({ _id: id }, (err, trip) => {
+  Trip.find({ id }, (err, trip) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
