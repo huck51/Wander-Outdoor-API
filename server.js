@@ -73,9 +73,9 @@ server.post('/request-trip', (req, res) => {
   });
 
   const mailOptions = {
-    from: 'evanallen51@gmail.com',
+    from: 'info@wanderoutdoor.co',
     to: 'ejallen2@wisc.edu',
-    subject: 'Testing Nodemailer',
+    subject: 'New Trip Request!',
     text: 'Nice it actually worked',
   };
 
