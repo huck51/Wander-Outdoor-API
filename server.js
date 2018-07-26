@@ -63,6 +63,31 @@ server.post('/cloudinary', (req, res) => {
   }
 });
 
+server.post('/request-trip', (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'evanallen51@gmail.com',
+      pass: process.env.NODEMAIL_KEY,
+    },
+  });
+
+  const mailOptions = {
+    from: 'evanallen51@gmail.com',
+    to: 'ejallen2@wisc.edu',
+    subject: 'Testing Nodemailer',
+    text: 'Nice it actually worked',
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+});
+
 server.post('/find-user', (req, res) => {
   const { id } = req.body;
   console.log(id);
