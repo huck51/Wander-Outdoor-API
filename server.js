@@ -67,7 +67,7 @@ server.post('/request-trip', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Godaddy',
     auth: {
-      user: 'info@wanderoutdoor.co',
+      user: 'wanderoutdoorco',
       pass: process.env.NODEMAIL_KEY,
     },
   });
