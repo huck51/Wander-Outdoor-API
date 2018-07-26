@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.2.1",
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.12",
+    "nodemailer": "^4.6.7",
     "nodemon": "^1.17.3",
     "pwgen": "^0.1.6",
     "universal-cookie": "^2.1.2"

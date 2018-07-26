@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Pwgen = require('pwgen');
 const cloudinary = require('cloudinary');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5001;
 const Traveler = require('./Models/travelerModel');
 const Guide = require('./Models/guideModel');
@@ -466,7 +467,6 @@ server.post('/contact-message', (req, res) => {
 });
 
 server.post('/update-profile', (req, res) => {
-  console.log('updateprofile');
   const {
     firstName,
     lastName,
