@@ -65,9 +65,9 @@ server.post('/cloudinary', (req, res) => {
 
 server.post('/request-trip', (req, res) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'Godaddy',
     auth: {
-      user: 'evanallen51@gmail.com',
+      user: 'info@wanderoutdoor.co',
       pass: process.env.NODEMAIL_KEY,
     },
   });
@@ -82,8 +82,10 @@ server.post('/request-trip', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
+      res.status(422).send(error);
     } else {
       console.log('Email sent: ' + info.response);
+      res.status(200).send(info.response);
     }
   });
 });
