@@ -66,6 +66,9 @@ server.post('/cloudinary', (req, res) => {
 server.post('/request-trip', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Godaddy',
+    host: 'smtpout.secureserver.net',
+    secureConnection: true,
+    port: 465,
     auth: {
       user: 'wanderoutdoorco',
       pass: process.env.NODEMAIL_KEY,
