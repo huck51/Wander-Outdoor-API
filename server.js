@@ -70,7 +70,7 @@ server.post('/request-trip', (req, res) => {
     secureConnection: true,
     port: 465,
     auth: {
-      user: 'wanderoutdoorco',
+      user: 'info@wanderoutdoor.co',
       pass: process.env.NODEMAIL_KEY,
     },
   });
