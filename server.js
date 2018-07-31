@@ -49,7 +49,7 @@ const searchAll = (tags) => {
   console.log(t);
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
-
+//smtpout.secureserver.net
 server.post('/cloudinary', (req, res) => {
   const params_to_sign = req.body.paramsToSign;
   params_to_sign.timestamp = Date.now();
@@ -66,7 +66,7 @@ server.post('/cloudinary', (req, res) => {
 server.post('/request-trip', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Office365',
-    host: 'smtpout.secureserver.net',
+    host: 'smtp.office365.com',
     secureConnection: true,
     port: 465,
     auth: {
