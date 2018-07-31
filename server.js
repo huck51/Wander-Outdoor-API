@@ -65,7 +65,7 @@ server.post('/cloudinary', (req, res) => {
 
 server.post('/request-trip', (req, res) => {
   const transporter = nodemailer.createTransport({
-    service: 'Godaddy',
+    service: 'Office365',
     host: 'smtpout.secureserver.net',
     secureConnection: true,
     port: 465,
@@ -268,7 +268,7 @@ server.post('/add-trip', (req, res) => {
     picture,
     chex,
   } = req.body;
-  const tags = [name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
+  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const newTrip = new Trip({
     name,
     city,
