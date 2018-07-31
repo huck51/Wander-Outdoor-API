@@ -68,7 +68,7 @@ server.post('/request-trip', (req, res) => {
     service: 'Office365',
     host: 'smtp.office365.com',
     secureConnection: true,
-    port: 465,
+    port: 587,
     auth: {
       user: 'info@wanderoutdoor.co',
       pass: process.env.NODEMAIL_KEY,
