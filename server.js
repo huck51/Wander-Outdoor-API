@@ -412,6 +412,11 @@ server.post('/add-trip', (req, res) => {
   });
 });
 
+server.get('/edit-trip/:id', (req, res) => {
+   const { id } = req.params;
+   console.log(id);
+});
+
 server.get('/trips', (req, res) => {
   Trip.find({}, (err, allTrips) => {
     if (err) {
