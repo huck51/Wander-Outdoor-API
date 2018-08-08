@@ -80,9 +80,9 @@ server.post('/request-trip', (req, res) => {
 
   const mailOptions = {
     from: 'info@wanderoutdoor.co',
-    to: tripRequest,
+    to: tripRequest.companyEmail,
     subject: 'New Trip Request!',
-    text: '',
+    text: `Hello ${tripRequest.companyName}, ${tripRequest.firstName} ${tripRequest.lastName} is interested in booking ${tripRequest.trip} with ${tripRequest.guide} as thier guide! This trip is for ${tripRequest.numPeople}. They would like to book it for ${tripRequest.departure}. Please reach out to them by email at ${tripRequest.email} and/or by phone at ${tripRequest.phone} to confirm the details of their trip. Wander on. -Your friends at Wander Outdoor`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
