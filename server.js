@@ -529,7 +529,7 @@ server.post('/update-profile', (req, res) => {
 server.post('/append/email/toUser', (req, res) => {
   const { companyCode, _id } = req.body.mergerPackage;
   console.log(companyCode);
-  Company.findOne({ companyCode }, (err, foundCompany) => {
+  Company.findOne({ companyCode }, (err, foundCompany, _id) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
