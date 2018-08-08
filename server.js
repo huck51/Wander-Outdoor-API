@@ -538,6 +538,7 @@ server.post('/append/email/toUser', (req, res) => {
       console.log('so far so good');
       const companyEmail = foundCompany.contactEmail;
       const { companyName } = foundCompany;
+      console.log(_id);
       User.findOneAndUpdate({ _id }, { $set: { companyEmail: companyEmail, companyName: companyName} }, (err, updatedUser) => {
         if (err) {
           console.log('err');
