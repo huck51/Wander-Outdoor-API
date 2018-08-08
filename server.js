@@ -12,6 +12,7 @@ const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
 const Message = require('./Models/messageModel');
+const axios = require('axios');
 
 const server = express();
 
@@ -64,6 +65,8 @@ server.post('/cloudinary', (req, res) => {
 });
 
 server.post('/request-trip', (req, res) => {
+  const tripRequest = req.body.tripRequest;
+  console.log(tripRequest);
   const transporter = nodemailer.createTransport({
     service: 'Office365',
     host: 'smtp.office365.com',
@@ -77,9 +80,9 @@ server.post('/request-trip', (req, res) => {
 
   const mailOptions = {
     from: 'info@wanderoutdoor.co',
-    to: 'ejallen2@wisc.edu',
+    to: tripRequest.
     subject: 'New Trip Request!',
-    text: 'Nice it actually worked',
+    text: '',
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -287,36 +290,6 @@ server.post('/add-trip', (req, res) => {
     } else {
       console.log(newTrip);
       res.json(newTrip);
-    }
-  });
-});
-
-server.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  Traveler.find({ username }, (err, user) => {
-    if (err) {
-      res.json({ loggedIn: false });
-    } else {
-      console.log(user);
-      if (user.length > 0 && user[0].username === username && user[0].password === password) {
-        res.json({ loggedIn: true });
-      } else {
-        res.json({ loggedIn: false });
-      }
-    }
-  });
-});
-
-server.post('/signup/traveler', (req, res) => {
-  const { firstName, lastName, DOB, email, phone, username, password } = req.body;
-  const newTraveler = new Traveler({ firstName, lastName, DOB, email, phone, username, password });
-  newTraveler.save((err, newTraveler) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message});
-    } else {
-      console.log(newTraveler);
-      res.json(newTraveler);
     }
   });
 });
@@ -536,10 +509,29 @@ server.post('/update-profile', (req, res) => {
       res.status(422).send(err);
     }
     if (updatedUser) {
+      if (updatedUser.roleGroup === 'guide' && updatedUser.companyCode && !updatedUser.companyEmail) {
+        const mergerPackage = {
+          companyCode: updatedUser.companyCode,
+          userId: updatedUser._id,
+        };
+        axios.post('https://fierce-ridge-55021.herokuapp.com/append/email/toUser', mergerPackage)
+          .then((response) => {
+            return;
+          })
+          .catch((error) => {
+            console.log(error);
+            return;
+          });
+      }
       console.log(updatedUser);
       res.status(200).json(updatedUser);
     }
   });
+});
+
+server.post('/append/email/toUser', (req, res) => {
+  const { companyCode, _id } = req.body.mergerPackage;
+  console.log(companyCode);
 });
 
 server.listen(PORT, () => {
