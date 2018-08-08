@@ -543,11 +543,11 @@ server.post('/append/email/toUser', (req, res) => {
       User.findOneAndUpdate({ _id }, { $set: { companyEmail: companyEmail, companyName: companyName} }, (err, updatedUser) => {
         if (err) {
           console.log('err');
-          return res.status(503).send(err);
+          // return res.status(503).send(err);
         }
         if (updatedUser) {
           console.log(updatedUser);
-          return res.status(200).send('success');
+          // return res.status(200).send('success');
         }
       });
     }
