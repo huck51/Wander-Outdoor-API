@@ -65,7 +65,7 @@ server.post('/cloudinary', (req, res) => {
 });
 
 server.post('/request-trip', (req, res) => {
-  const tripRequest = req.body.tripRequest;
+  const tripRequest = req.body;
   console.log(tripRequest);
   const transporter = nodemailer.createTransport({
     service: 'Office365',
@@ -485,7 +485,6 @@ server.post('/update-profile', (req, res) => {
     state,
     chex,
   } = req.body;
-  console.log(req.body);
   const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), state.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const updateObject = {
     firstName,
@@ -503,7 +502,6 @@ server.post('/update-profile', (req, res) => {
     chex,
     tags,
   };
-  console.log(updateObject);
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
       res.status(422).send(err);
@@ -514,7 +512,7 @@ server.post('/update-profile', (req, res) => {
           companyCode: updatedUser.companyCode,
           userId: updatedUser._id,
         };
-        axios.post('https://fierce-ridge-55021.herokuapp.com/append/email/toUser', mergerPackage)
+        axios.post('https://fierce-ridge-55021.herokuapp.com/append/email/toUser', {mergerPackage})
           .then((response) => {
             return;
           })
@@ -523,14 +521,13 @@ server.post('/update-profile', (req, res) => {
             return;
           });
       }
-      console.log(updatedUser);
       res.status(200).json(updatedUser);
     }
   });
 });
 
 server.post('/append/email/toUser', (req, res) => {
-  const { companyCode, _id } = req.body.mergerPackage;
+  const { companyCode, _id } = req.body;
   console.log(companyCode);
 });
 
