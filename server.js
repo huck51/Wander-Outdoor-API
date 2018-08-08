@@ -527,9 +527,9 @@ server.post('/update-profile', (req, res) => {
 });
 
 server.post('/append/email/toUser', (req, res) => {
-  const { companyCode, _id } = req.body;
-  console.log(req.body);
-  return res.status(200);
+  const { companyCode, _id } = req.body.mergerPackage;
+  console.log(companyCode);
+  return res.status(200).res.json('Success');
 });
 
 server.listen(PORT, () => {
