@@ -51,65 +51,10 @@ const searchAll = (tags) => {
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
 //smtpout.secureserver.net
-server.post('/cloudinary', (req, res) => {
-  const params_to_sign = req.body.paramsToSign;
-  params_to_sign.timestamp = Date.now();
-  console.log(params_to_sign);
-  const sig = cloudinary.utils.api_sign_request(params_to_sign, process.env.CLOUDINARY_API_SECRET);
-  console.log(sig);
-  if (sig) {
-    res.status(200).json(sig);
-  } else {
-    res.status(422);
-  }
-});
 
-server.post('/request-trip', (req, res) => {
-  const tripRequest = req.body;
-  console.log(tripRequest);
-  const transporter = nodemailer.createTransport({
-    service: 'Office365',
-    host: 'smtp.office365.com',
-    secureConnection: true,
-    port: 587,
-    auth: {
-      user: 'info@wanderoutdoor.co',
-      pass: process.env.NODEMAIL_KEY,
-    },
-  });
-
-  const mailOptions = {
-    from: 'info@wanderoutdoor.co',
-    to: 'ejallen2@wisc.edu',
-    subject: 'New Trip Request!',
-    text: `Hello ${tripRequest.companyName}, ${tripRequest.firstName} ${tripRequest.lastName} is interested in booking ${tripRequest.trip} with ${tripRequest.guide} as thier guide! This trip is for ${tripRequest.numPeople}. They would like to book it for ${tripRequest.departure}. Please reach out to them by email at ${tripRequest.email} and/or by phone at ${tripRequest.phone} to confirm the details of their trip. Wander on. -Your friends at Wander Outdoor`,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.status(422).send(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-      res.status(200).send(info.response);
-    }
-  });
-});
-
-server.post('/find-user', (req, res) => {
-  const { id } = req.body;
-  console.log(id);
-  User.findOne({ id }, (err, foundUser) => {
-    if (err) {
-      return res.status(422).send(err);
-    }
-    if (foundUser) {
-      console.log(foundUser);
-      return res.status(200).json(foundUser);
-    }
-  });
-});
-
+/*=======================================================
+============= COMPANY ROUTES ============================
+=======================================================*/
 server.get('/company/:companyName', (req, res) => {
   const { companyName } = req.params;
   console.log(companyName);
@@ -148,52 +93,6 @@ server.post('/dashboard-companies', (req, res) => {
   });
 });
 
-server.get('/guides', (req, res) => {
-  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, companyName: 1, companyEmail: 1, city: 1, state: 1, roleGroup: 1, picture: 1, id: 1, _id: 0 }, (err, allGuides) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      console.log(allGuides);
-      res.json(allGuides);
-    }
-  });
-});
-
-server.get('/guides/:company', (req, res) => {
-  const companyName = req.params.company;
-  console.log(companyName);
-  Company.findOne({ companyName }, (err, foundCompany) => {
-    if (err) {
-      console.log(err);
-      return res.status(422).send(err);
-    }
-    if (foundCompany) {
-      const { companyCode } = foundCompany;
-      User.find({ companyCode }, (err, companies) => {
-        if (err) {
-          console.log(err);
-          return res.status(422).send(err);
-        }
-        if (companies) {
-          return res.status(200).json(companies);
-        }
-      });
-    }
-  });
-});
-
-server.get('/guides/:username', (req, res) => {
-  const { username } = req.params;
-  Guide.findOne({ username }, (err, guide) => {
-    if (err) {
-      res.status(422).json({ stack: err.stack, message: err.message });
-    } else {
-      res.status(200).send(guide);
-    }
-  });
-});
-
 server.get('/guiding-companies', (req, res) => {
   Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1 }, (err, allCompanies) => {
     if (err) {
@@ -202,107 +101,6 @@ server.get('/guiding-companies', (req, res) => {
     } else {
       console.log(allCompanies);
       res.send(allCompanies);
-    }
-  });
-});
-
-server.get('/trips', (req, res) => {
-  Trip.find({}, (err, allTrips) => {
-    if (err) {
-      return res.status(422).send(err);
-    } else {
-      return res.status(200).send(allTrips);
-    }
-  });
-});
-
-server.get('/trips/:company', (req, res) => {
-  const { company } = req.params;
-  Trip.find({ company }, (err, trips) => {
-    if (err) {
-      console.log(err);
-      return res.status(422).send(err);
-    }
-    if (trips) {
-      return res.status(200).json(trips);
-    }
-  });
-});
-
-server.get('/trip/:id', (req, res) => {
-  console.log('hello');
-  const { id } = req.params;
-  console.log(id);
-  Trip.findOne({ _id: id }, (err, trip) => {
-    if (err) {
-      console.log(err);
-      return res.status(422).send(err);
-    }
-    if (trip) {
-      return res.status(200).json(trip);
-    }
-  });
-});
-
-server.get('/results/:search', (req, res) => {
-  const  { search } = req.params;
-  const searchParams = search.toLowerCase().split(' ');
-  searchParams.push(searchParams.join(' '));
-  searchAll(searchParams)
-  .then((result) => {
-    const cat = result[0].concat(result[1]).concat(result[2]);
-    console.log(cat);
-    res.status(200).json(cat);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
-});
-
-server.post('/add-trip', (req, res) => {
-  const {
-    name,
-    city,
-    stateName,
-    description,
-    price,
-    company,
-    picture,
-    chex,
-  } = req.body;
-  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
-  const newTrip = new Trip({
-    name,
-    city,
-    stateName,
-    description,
-    price,
-    company,
-    picture,
-    chex,
-    tags
-  });
-  newTrip.save((err, newTrip) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      console.log(newTrip);
-      res.json(newTrip);
-    }
-  });
-});
-
-server.post('/signup/guide', (req, res) => {
-  const { firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs } = req.body;
-  const newGuide = new Guide({ firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs });
-  newGuide.save((err, newGuide) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      res.json(newGuide);
     }
   });
 });
@@ -394,6 +192,69 @@ server.post('/update/guiding-company', (req, res) => {
   });
 });
 
+/*=======================================================
+============= USER ROUTES ===============================
+=======================================================*/
+server.post('/find-user', (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+  User.findOne({ id }, (err, foundUser) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    if (foundUser) {
+      console.log(foundUser);
+      return res.status(200).json(foundUser);
+    }
+  });
+});
+
+server.get('/guides', (req, res) => {
+  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, companyName: 1, companyEmail: 1, city: 1, state: 1, roleGroup: 1, picture: 1, id: 1, _id: 0 }, (err, allGuides) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      console.log(allGuides);
+      res.json(allGuides);
+    }
+  });
+});
+
+server.get('/guides/:company', (req, res) => {
+  const companyName = req.params.company;
+  console.log(companyName);
+  Company.findOne({ companyName }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (foundCompany) {
+      const { companyCode } = foundCompany;
+      User.find({ companyCode }, (err, companies) => {
+        if (err) {
+          console.log(err);
+          return res.status(422).send(err);
+        }
+        if (companies) {
+          return res.status(200).json(companies);
+        }
+      });
+    }
+  });
+});
+
+server.get('/guides/:username', (req, res) => {
+  const { username } = req.params;
+  Guide.findOne({ username }, (err, guide) => {
+    if (err) {
+      res.status(422).json({ stack: err.stack, message: err.message });
+    } else {
+      res.status(200).send(guide);
+    }
+  });
+});
+
 server.post('/remove-guide', (req, res) => {
   const { id } = req.body;
   console.log(req.body);
@@ -403,17 +264,6 @@ server.post('/remove-guide', (req, res) => {
     } else {
       console.log(guide);
       res.status(200).send(guide);
-    }
-  });
-});
-
-server.post('/remove-trip', (req, res) => {
-  const { id } = req.body;
-  Trip.findByIdAndRemove(id, (err, trip) => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      res.status(200).send(trip);
     }
   });
 });
@@ -454,17 +304,15 @@ server.post('/signup-newuser', (req, res) => {
   })
 });
 
-server.post('/contact-message', (req, res) => {
-  const { name, email, message } = req.body;
-  const newMessage = new Message({ name, email, message });
-  console.log(newMessage);
-  newMessage.save((err, newMessage) => {
+server.post('/signup/guide', (req, res) => {
+  const { firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs } = req.body;
+  const newGuide = new Guide({ firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs });
+  newGuide.save((err, newGuide) => {
     if (err) {
-      return res.status(422).send(err);
-    }
-    if (newMessage) {
-      console.log(newMessage);
-      return res.status(200).send(newMessage);
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      res.json(newGuide);
     }
   });
 });
@@ -526,6 +374,129 @@ server.post('/update-profile', (req, res) => {
   });
 });
 
+/*=======================================================
+============= TRIP ROUTES ===============================
+=======================================================*/
+
+server.post('/add-trip', (req, res) => {
+  const {
+    name,
+    city,
+    stateName,
+    description,
+    price,
+    company,
+    picture,
+    chex,
+  } = req.body;
+  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
+  const newTrip = new Trip({
+    name,
+    city,
+    stateName,
+    description,
+    price,
+    company,
+    picture,
+    chex,
+    tags
+  });
+  newTrip.save((err, newTrip) => {
+    if (err) {
+      res.status(422);
+      res.json({ stack: err.stack, message: err.message });
+    } else {
+      console.log(newTrip);
+      res.json(newTrip);
+    }
+  });
+});
+
+server.get('/trips', (req, res) => {
+  Trip.find({}, (err, allTrips) => {
+    if (err) {
+      return res.status(422).send(err);
+    } else {
+      return res.status(200).send(allTrips);
+    }
+  });
+});
+
+server.get('/trips/:company', (req, res) => {
+  const { company } = req.params;
+  Trip.find({ company }, (err, trips) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (trips) {
+      return res.status(200).json(trips);
+    }
+  });
+});
+
+server.get('/trip/:id', (req, res) => {
+  console.log('hello');
+  const { id } = req.params;
+  console.log(id);
+  Trip.findOne({ _id: id }, (err, trip) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (trip) {
+      return res.status(200).json(trip);
+    }
+  });
+});
+
+server.post('/remove-trip', (req, res) => {
+  const { id } = req.body;
+  Trip.findByIdAndRemove(id, (err, trip) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      res.status(200).send(trip);
+    }
+  });
+});
+
+server.post('/request-trip', (req, res) => {
+  const tripRequest = req.body;
+  console.log(tripRequest);
+  const transporter = nodemailer.createTransport({
+    service: 'Office365',
+    host: 'smtp.office365.com',
+    secureConnection: true,
+    port: 587,
+    auth: {
+      user: 'info@wanderoutdoor.co',
+      pass: process.env.NODEMAIL_KEY,
+    },
+  });
+
+  const mailOptions = {
+    from: 'info@wanderoutdoor.co',
+    to: 'ejallen2@wisc.edu',
+    subject: 'New Trip Request!',
+    text: `Hello ${tripRequest.companyName}, ${tripRequest.firstName} ${tripRequest.lastName} is interested in booking ${tripRequest.trip} with ${tripRequest.guide} as thier guide! This trip is for ${tripRequest.numPeople}. They would like to book it for ${tripRequest.departure}. Please reach out to them by email at ${tripRequest.email} and/or by phone at ${tripRequest.phone} to confirm the details of their trip. Wander on. -Your friends at Wander Outdoor`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(422).send(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send(info.response);
+    }
+  });
+});
+
+/*=======================================================
+============= OTHER ROUTES ==============================
+=======================================================*/
+
 server.post('/append/email/toUser', (req, res) => {
   const { companyCode } = req.body.mergerPackage;
   const _id = req.body.mergerPackage.userId;
@@ -553,6 +524,49 @@ server.post('/append/email/toUser', (req, res) => {
     }
   });
   return res.status(200).json('Success');
+});
+
+server.post('/cloudinary', (req, res) => {
+  const params_to_sign = req.body.paramsToSign;
+  params_to_sign.timestamp = Date.now();
+  console.log(params_to_sign);
+  const sig = cloudinary.utils.api_sign_request(params_to_sign, process.env.CLOUDINARY_API_SECRET);
+  console.log(sig);
+  if (sig) {
+    res.status(200).json(sig);
+  } else {
+    res.status(422);
+  }
+});
+
+server.post('/contact-message', (req, res) => {
+  const { name, email, message } = req.body;
+  const newMessage = new Message({ name, email, message });
+  console.log(newMessage);
+  newMessage.save((err, newMessage) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    if (newMessage) {
+      console.log(newMessage);
+      return res.status(200).send(newMessage);
+    }
+  });
+});
+
+server.get('/results/:search', (req, res) => {
+  const  { search } = req.params;
+  const searchParams = search.toLowerCase().split(' ');
+  searchParams.push(searchParams.join(' '));
+  searchAll(searchParams)
+  .then((result) => {
+    const cat = result[0].concat(result[1]).concat(result[2]);
+    console.log(cat);
+    res.status(200).json(cat);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 });
 
 server.listen(PORT, () => {
