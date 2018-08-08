@@ -529,7 +529,27 @@ server.post('/update-profile', (req, res) => {
 server.post('/append/email/toUser', (req, res) => {
   const { companyCode, _id } = req.body.mergerPackage;
   console.log(companyCode);
-  return res.status(200).res.json('Success');
+  Company.findOne({ companyCode }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundCompany) {
+      const companyEmail = foundCompany.contactEmail;
+      const { companyName } = foundCompany;
+      User.findOneAndUpdate({ _id }, {companyEmail, companyName}, (err, updatedUser) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (updatedUser) {
+          console.log(updatedUser);
+          return res.status(200).send('success');
+        }
+      });
+    }
+  });
+  return res.status(200).json('Success');
 });
 
 server.listen(PORT, () => {

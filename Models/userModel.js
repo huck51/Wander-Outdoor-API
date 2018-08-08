@@ -11,6 +11,9 @@ const UserSchema = new Schema({
   companyName: {
     type: String,
   },
+  companyEmail: {
+    type: String,
+  }
   companyCode: {
     type: String,
   },
