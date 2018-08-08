@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   },
   companyEmail: {
     type: String,
-  }
+  },
   companyCode: {
     type: String,
   },
