@@ -80,7 +80,7 @@ server.post('/request-trip', (req, res) => {
 
   const mailOptions = {
     from: 'info@wanderoutdoor.co',
-    to: tripRequest.
+    to: tripRequest,
     subject: 'New Trip Request!',
     text: '',
   };
