@@ -528,7 +528,8 @@ server.post('/update-profile', (req, res) => {
 
 server.post('/append/email/toUser', (req, res) => {
   const { companyCode, _id } = req.body;
-  console.log(companyCode);
+  console.log(req.body);
+  return res.status(200);
 });
 
 server.listen(PORT, () => {
