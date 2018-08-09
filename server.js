@@ -210,7 +210,7 @@ server.post('/find-user', (req, res) => {
 });
 
 server.get('/guides', (req, res) => {
-  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, companyName: 1, companyEmail: 1, city: 1, state: 1, roleGroup: 1, picture: 1, id: 1, _id: 0 }, (err, allGuides) => {
+  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, companyName: 1, companyEmail: 1, city: 1, state: 1, roleGroup: 1, picture: 1, id: 0, _id: 1 }, (err, allGuides) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
@@ -414,7 +414,7 @@ server.post('/add-trip', (req, res) => {
 
 server.get('/edit-trip/:id', (req, res) => {
    const { id } = req.params;
-   console.log(id);
+
 });
 
 server.get('/trips', (req, res) => {
@@ -441,9 +441,7 @@ server.get('/trips/:company', (req, res) => {
 });
 
 server.get('/trip/:id', (req, res) => {
-  console.log('hello');
   const { id } = req.params;
-  console.log(id);
   Trip.findOne({ _id: id }, (err, trip) => {
     if (err) {
       console.log(err);
