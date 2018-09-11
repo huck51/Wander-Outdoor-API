@@ -61,8 +61,8 @@ var management = new ManagementClient({
 
 var auth0 = new ManagementClient({
   domain: 'wander-outdoor.auth0.com',
-  clientId: '',
-  clientSecret: ''
+  clientId: 'process.env.A0CLIENTID',
+  clientSecret: 'process.env.A0CLIENTSECRET'
 });
 
 server.get('/testy-puller', (req, res) => {
