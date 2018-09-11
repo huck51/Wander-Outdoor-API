@@ -1,18 +1,20 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const axios = require('axios');
 const bodyParser = require('body-parser');
-const Pwgen = require('pwgen');
 const cloudinary = require('cloudinary');
+const Company = require('./Models/companyModel');
 const cors = require('cors');
+const express = require('express');
+const Guide = require('./Models/guideModel');
+const ManagementClient = require('auth0').ManagementClient;
+const Message = require('./Models/messageModel');
+const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5001;
+const Pwgen = require('pwgen');
 const Traveler = require('./Models/travelerModel');
-const Guide = require('./Models/guideModel');
-const Company = require('./Models/companyModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
-const Message = require('./Models/messageModel');
-const axios = require('axios');
+
 
 const server = express();
 
@@ -51,6 +53,11 @@ const searchAll = (tags) => {
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
 //smtpout.secureserver.net
+console.log(process.env.A0MANTOKEN);
+var management = new ManagementClient({
+  token: process.env.A0MANTOKEN,
+  domain: 'wander-outdoor.auth0.com'
+});
 
 /*=======================================================
 ============= COMPANY ROUTES ============================
