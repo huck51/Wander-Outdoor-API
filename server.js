@@ -53,10 +53,32 @@ const searchAll = (tags) => {
   return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
 //smtpout.secureserver.net
-console.log(process.env.A0MANTOKEN);
+
 var management = new ManagementClient({
   token: process.env.A0MANTOKEN,
   domain: 'wander-outdoor.auth0.com'
+});
+
+var auth0 = new ManagementClient({
+  domain: 'wander-outdoor.auth0.com',
+  clientId: '',
+  clientSecret: ''
+});
+
+server.get('/testy-puller', (req, res) => {
+  const options = {
+    grant_type: 'client_credentials',
+    client_id: process.env.A0CLIENTID,
+    client_secret: process.env.A0CLIENTSECRET,
+    audience: 'https://wander-outdoor.com/api/v2/'
+  };
+  axios.post('https://wander-outdoor.com/oauth/token', options)
+  .then(response => {
+    console.log(response);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 });
 
 /*=======================================================
