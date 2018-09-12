@@ -81,7 +81,9 @@ const authZeroProcess = () => {
   });
 };
 
-const processInterval = setInterval(authZeroProcess, 30000);
+const processInterval = () => {
+  setInterval(authZeroProcess, 30000);
+};
 processInterval();
 
 server.get('/testy-puller', (req, res) => {
