@@ -67,11 +67,13 @@ var auth0 = new ManagementClient({
 
 server.get('/testy-puller', (req, res) => {
   const options = {
-    grant_type: 'client_credentials',
-    client_id: process.env.A0CLIENTID,
-    client_secret: process.env.A0CLIENTSECRET,
-    audience: 'https://wander-outdoor.auth0.com/api/v2/',
-    scope: ['read:client_grants'],
+    headers: { 'content-type': 'application/json' },
+    body: {
+      grant_type: 'client_credentials',
+      client_id: process.env.A0CLIENTID,
+      client_secret: process.env.A0CLIENTSECRET,
+      audience: 'https://wander-outdoor.auth0.com/api/v2/',
+    }
   };
   axios.post('https://wander-outdoor.auth0.com/oauth/token', options)
   .then(response => {
