@@ -70,7 +70,7 @@ server.get('/testy-puller', (req, res) => {
   method: 'POST',
   url: 'https://wander-outdoor.auth0.com/oauth/token',
   headers: { 'content-type': 'application/json' },
-  body: '{"client_id":"9rqdI3tUdOHBygNoNNSTOByQft4e8q7N","client_secret":"JzZipTKBe-jVtqrqlZxDfxm8oX70QPVPGjKD7PbyJHjxxXvqPlRKSqZsEusHakI-","audience":"https://wander-outdoor.auth0.com/api/v2/","grant_type":"client_credentials"}'
+  body: {"client_id":"9rqdI3tUdOHBygNoNNSTOByQft4e8q7N","client_secret":"JzZipTKBe-jVtqrqlZxDfxm8oX70QPVPGjKD7PbyJHjxxXvqPlRKSqZsEusHakI-","audience":"https://wander-outdoor.auth0.com/api/v2/","grant_type":"client_credentials"}
   };
   axios(options)
   .then(response => {
