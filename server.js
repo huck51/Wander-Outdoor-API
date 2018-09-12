@@ -81,7 +81,7 @@ server.get('/testy-puller', (req, res) => {
   .then(response => {
     console.log(response.data);
     console.log('RESPONSE-RESPONSE-RESPONSE');
-    return res.status(200).send({response.data});
+    return res.status(200).send(response.data);
   })
   .catch(error => {
     console.log(error);
