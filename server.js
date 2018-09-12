@@ -73,7 +73,8 @@ server.get('/testy-puller', (req, res) => {
       'client_id': process.env.A0CLIENTID,
       'client_secret': process.env.A0CLIENTSECRET,
       'audience': 'https://wander-outdoor.auth0.com/api/v2/',
-    }
+    },
+    json: true
   };
   axios.post('https://wander-outdoor.auth0.com/oauth/token', options)
   .then(response => {
