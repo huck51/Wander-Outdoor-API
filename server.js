@@ -55,7 +55,7 @@ const searchAll = (tags) => {
 //smtpout.secureserver.net
 
 var management = new ManagementClient({
-  token: process.env.A0MANTOKEN,
+  token: `Bearer ${process.env.A0MANTOKEN}`,
   domain: 'wander-outdoor.auth0.com'
 });
 
