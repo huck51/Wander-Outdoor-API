@@ -84,7 +84,7 @@ server.get('/testy-puller', (req, res) => {
   .catch(error => {
     console.log(error);
     console.log('ERROR-ERROR-ERROR');
-    return res.status(422).json(JSON.stringify(error));
+    return res.status(422).send('error');
   });
 });
 
