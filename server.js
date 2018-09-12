@@ -54,16 +54,35 @@ const searchAll = (tags) => {
 };
 //smtpout.secureserver.net
 
-var management = new ManagementClient({
-  token: `Bearer ${process.env.A0MANTOKEN}`,
-  domain: 'wander-outdoor.auth0.com'
-});
+const authZeroProcess = () => {
+  const options = {
+    method: 'POST',
+    url: 'https://wander-outdoor.auth0.com/oauth/token',
+    headers: {
+      'content-type': 'application/json'
+    },
+    data: {
+      "client_id": process.env.A0CLIENTID,
+      "client_secret": process.env.A0CLIENTSECRET,
+      "audience":"https://wander-outdoor.auth0.com/api/v2/",
+      "grant_type":"client_credentials"
+    }
+  };
 
-var auth0 = new ManagementClient({
-  domain: 'wander-outdoor.auth0.com',
-  clientId: 'process.env.A0CLIENTID',
-  clientSecret: 'process.env.A0CLIENTSECRET'
-});
+  axios(options)
+  .then(response => {
+    console.log(response.data);
+    console.log('RESPONSE-RESPONSE-RESPONSE***FUNCTION');
+    return response.data;
+  })
+  .catch(error => {
+    console.log(error);
+    console.log('ERROR-ERROR-ERROR***FUNCTION');
+  });
+};
+
+const processInterval = setInterval(authZeroProcess, 30000);
+processInterval();
 
 server.get('/testy-puller', (req, res) => {
   const options = {
