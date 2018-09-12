@@ -82,7 +82,7 @@ const authZeroProcess = () => {
 };
 
 const processInterval = () => {
-  setInterval(authZeroProcess, 30000);
+  setInterval(authZeroProcess, 3600000);
 };
 processInterval();
 
