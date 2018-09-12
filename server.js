@@ -70,13 +70,18 @@ server.get('/testy-puller', (req, res) => {
   method: 'POST',
   url: 'https://wander-outdoor.auth0.com/oauth/token',
   headers: { 'content-type': 'application/json' },
-  data: {"client_id":"9rqdI3tUdOHBygNoNNSTOByQft4e8q7N","client_secret":"JzZipTKBe-jVtqrqlZxDfxm8oX70QPVPGjKD7PbyJHjxxXvqPlRKSqZsEusHakI-","audience":"https://wander-outdoor.auth0.com/api/v2/","grant_type":"client_credentials"}
+  data: {
+    "client_id": process.env.A0CLIENTID,
+    "client_secret": process.env.A0CLIENTSECRET,
+    "audience":"https://wander-outdoor.auth0.com/api/v2/",
+    "grant_type":"client_credentials"
+  }
   };
   axios(options)
   .then(response => {
-    console.log(response);
+    console.log(response.data);
     console.log('RESPONSE-RESPONSE-RESPONSE');
-    return res.status(200).json(response);
+    return res.status(200).json({response.data});
   })
   .catch(error => {
     console.log(error);
