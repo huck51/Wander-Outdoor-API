@@ -29,7 +29,7 @@ const mongOptions = {
 }
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, mongOptions);
-console.log(process.env.MONGODB_URI);
+
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
@@ -72,13 +72,10 @@ const authZeroProcess = () => {
 
   axios(options)
   .then(response => {
-    console.log(response.data);
-    console.log('RESPONSE-RESPONSE-RESPONSE***FUNCTION');
     return response.data;
   })
   .catch(error => {
     console.log(error);
-    console.log('ERROR-ERROR-ERROR***FUNCTION');
   });
 };
 
@@ -101,8 +98,6 @@ server.get('/testy-puller', (req, res) => {
   };
   axios(options)
   .then(response => {
-    console.log(response.data);
-    console.log('RESPONSE-RESPONSE-RESPONSE');
     return res.status(200).send(response.data);
   })
   .catch(error => {
