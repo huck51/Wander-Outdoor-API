@@ -29,6 +29,7 @@ const mongOptions = {
 }
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, mongOptions);
+console.log(process.env.MONGODB_URI);
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
