@@ -25,10 +25,22 @@ cloudinary.config({
 });
 
 const mongOptions = {
+  auth: {
+    user: process.env.MONGO_USER,
+    password: process.env.MONGO_P,
+  },
   poolSize: 10,
-}
+  useNewUrlParser: true,
+};
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, mongOptions);
+mongoose.connect(process.env.MONGODB_URI, mongOptions)
+  .then(() => {
+    console.log(mongoose.connection);
+  })
+  .catch(err => {
+    console.log(err);
+    console.log(mongoose.connection);
+  });
 
 
 server.use(bodyParser.json());
@@ -47,7 +59,7 @@ server.get('/', (req, res) => {
 });
 
 const searchAll = (tags) => {
-  models = [Company, User, Trip];
+  const models = [Company, User, Trip];
   const t = tags.pop();
   console.log(tags);
   console.log(t);
