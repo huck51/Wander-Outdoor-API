@@ -30,7 +30,6 @@ const mongOptions = {
     password: process.env.MONGO_P,
   },
   poolSize: 10,
-  useNewUrlParser: true,
 };
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, mongOptions)
@@ -63,7 +62,7 @@ const searchAll = (tags) => {
   const t = tags.pop();
   console.log(tags);
   console.log(t);
-  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
+  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 }).explain('executionStates')));
 };
 //smtpout.secureserver.net
 
