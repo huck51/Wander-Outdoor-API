@@ -32,6 +32,7 @@ const mongOptions = {
   poolSize: 10,
 };
 mongoose.Promise = global.Promise;
+mongoose.set('debug', true);
 mongoose.connect(process.env.MONGODB_URI, mongOptions)
   .then(() => {
     console.log(mongoose.connection);
@@ -62,7 +63,7 @@ const searchAll = (tags) => {
   const t = tags.pop();
   console.log(tags);
   console.log(t);
-  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 }).explain('executionStates')));
+  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
 //smtpout.secureserver.net
 
