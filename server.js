@@ -60,10 +60,8 @@ server.get('/', (req, res) => {
 
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
-  const t = tags.pop();
   console.log(tags);
-  console.log(t);
-  return Promise.all(models.map(model => model.find({ $or: [{ 'tags': { $all: tags} }, { 'tags': t }] }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
+  return Promise.all(models.map(model => model.find({ 'tags': { $in: tags} }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
 };
 //smtpout.secureserver.net
 
