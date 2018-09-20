@@ -629,9 +629,9 @@ server.get('/results', (req, res) => {
   const  { search } = req.query;
   console.log(search);
   if (search === 'Everything') {
-    const searchParams = [''];
+    var searchParams = [''];
   } else {
-    const searchParams = search.toLowerCase().split(' ');
+    var searchParams = search.toLowerCase().split(' ');
     searchParams.push(searchParams.join(' '));
     for (let i = 0; i < searchParams.length; i++) {
       searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
