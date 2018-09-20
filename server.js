@@ -626,8 +626,8 @@ server.post('/contact-message', (req, res) => {
   });
 });
 
-server.get('/results/:search', (req, res) => {
-  const  { search } = req.params;
+server.get('/results', (req, res) => {
+  const  { search } = req.query;
   console.log(search);
   const searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
