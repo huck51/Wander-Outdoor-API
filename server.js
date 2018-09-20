@@ -58,10 +58,14 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
+const escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
-  console.log(tags);
-  return Promise.all(models.map(model => model.find({ $text: { $search: tags[0]} }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
+  const regex = new RegExp(escapeRegex(tags[0]), 'gi');
+  return Promise.all(models.map(model => model.find({ $text: { $search: regex} }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 //smtpout.secureserver.net
 
