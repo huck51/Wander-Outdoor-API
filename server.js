@@ -64,8 +64,8 @@ const escapeRegex = text => {
 
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
-  const regex = new RegExp(escapeRegex(tags[0]), 'gi');
-  return Promise.all(models.map(model => model.find({ 'tags': regex }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
+  // const regex = new RegExp(escapeRegex(tags[0]), 'gi');
+  return Promise.all(models.map(model => model.find({ 'tags': tags[0] }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 //smtpout.secureserver.net
 
