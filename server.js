@@ -64,7 +64,6 @@ const escapeRegex = text => {
 
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
-
   return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 //smtpout.secureserver.net
@@ -629,10 +628,14 @@ server.post('/contact-message', (req, res) => {
 server.get('/results', (req, res) => {
   const  { search } = req.query;
   console.log(search);
-  const searchParams = search.toLowerCase().split(' ');
-  searchParams.push(searchParams.join(' '));
-  for (let i = 0; i < searchParams.length; i++) {
-    searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
+  if (search === 'Everything') {
+    const searchParams = [''];
+  } else {
+    const searchParams = search.toLowerCase().split(' ');
+    searchParams.push(searchParams.join(' '));
+    for (let i = 0; i < searchParams.length; i++) {
+      searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
+    }
   }
   console.log(searchParams);
   searchAll(searchParams)
