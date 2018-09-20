@@ -58,7 +58,7 @@ server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
 });
 
-const escapeRegex(text) {
+const escapeRegex = text => {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
