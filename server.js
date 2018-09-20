@@ -35,11 +35,11 @@ mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
 mongoose.connect(process.env.MONGODB_URI, mongOptions)
   .then(() => {
-    console.log(mongoose.connection);
+    // console.log(mongoose.connection);
   })
   .catch(err => {
     console.log(err);
-    console.log(mongoose.connection);
+    // console.log(mongoose.connection);
   });
 
 
@@ -64,8 +64,7 @@ const escapeRegex = text => {
 
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
-  // const regex = new RegExp(escapeRegex(tags[0]), 'gi');
-  return Promise.all(models.map(model => model.find({ 'tags': tags[0] }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
+  return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 //smtpout.secureserver.net
 
@@ -630,6 +629,9 @@ server.get('/results/:search', (req, res) => {
   const  { search } = req.params;
   const searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
+  for (let i = 0; i < searchParams.length; i++) {
+    searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
+  }
   searchAll(searchParams)
   .then((result) => {
     const cat = result[0].concat(result[1]).concat(result[2]);
