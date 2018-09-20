@@ -61,7 +61,7 @@ server.get('/', (req, res) => {
 const searchAll = (tags) => {
   const models = [Company, User, Trip];
   console.log(tags);
-  return Promise.all(models.map(model => model.find({ 'tags': { $in: tags} }, { firstName: 1, lastName: 1, companyName: 1, roleGroup: 1, city: 1, state: 1, stateName: 1, picture: 1, name: 1, company: 1 })));
+  return Promise.all(models.map(model => model.find({ $text: { $search: tags[0]} }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 //smtpout.secureserver.net
 
