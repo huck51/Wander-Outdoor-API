@@ -629,7 +629,7 @@ server.get('/results', (req, res) => {
   const  { search } = req.query;
   console.log(search);
   if (search === 'Everything') {
-    var searchParams = [''];
+    var searchParams = [/\w+/g];
   } else {
     var searchParams = search.toLowerCase().split(' ');
     searchParams.push(searchParams.join(' '));
