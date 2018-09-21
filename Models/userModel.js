@@ -54,9 +54,11 @@ const UserSchema = new Schema({
   rating: {
     rate: {
       type: Number,
+      default: 5,
     },
     numberOfRatings: {
       type: Number,
+      default: 0,
     },
   },
   roleGroup: {

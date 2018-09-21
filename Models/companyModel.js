@@ -60,7 +60,14 @@ const CompanySchema = new Schema({
     type: [String],
   },
   rating: {
-    type: Number,
+    rate: {
+      type: Number,
+      default: 5,
+    }
+    numberOfRatings: {
+      type: Number,
+      default: 0,
+    },
   },
   activities: {
     type: [String],

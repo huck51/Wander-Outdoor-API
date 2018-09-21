@@ -28,7 +28,14 @@ const TripSchema = new Schema({
     type: [String],
   },
   rating: {
-    type: Number,
+    rate: {
+      type: Number,
+      default: 5,
+    },
+    numberOfRatings: {
+      type: Number,
+      default: 0,
+    },
   },
   picture: {
     type: String,
