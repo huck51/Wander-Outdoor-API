@@ -63,7 +63,7 @@ const CompanySchema = new Schema({
     rate: {
       type: Number,
       default: 5,
-    }
+    },
     numberOfRatings: {
       type: Number,
       default: 0,
