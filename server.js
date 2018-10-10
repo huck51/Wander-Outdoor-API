@@ -55,7 +55,7 @@ server.use((req, res, next) => {
 });
 
 server.use(cors());
-server.options('*', cors())
+// server.options('*', cors())
 
 server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
