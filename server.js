@@ -450,7 +450,7 @@ server.post('/update-profile', (req, res) => {
 server.post('/create/customer', (req, res) => {
   console.log('create customer: ');
   console.log(req.body);
-  return res.status(200);
+  res.status(200);
 });
 
 /*=======================================================
