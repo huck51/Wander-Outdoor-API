@@ -29,6 +29,7 @@
     "nodemailer": "^4.6.7",
     "nodemon": "^1.18.4",
     "pwgen": "^0.1.6",
+    "stripe": "^6.12.1",
     "universal-cookie": "^2.1.2"
   }
 }
