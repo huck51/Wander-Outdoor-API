@@ -55,7 +55,6 @@ server.use((req, res, next) => {
 });
 
 server.use(cors());
-// server.options('*', cors())
 
 server.get('/', (req, res) => {
   res.send('SERVES UP DOOD');
@@ -452,6 +451,18 @@ server.post('/update-profile', (req, res) => {
 server.post('/create/customer', (req, res) => {
   console.log('create customer: ');
   console.log(req.body);
+  const { email, source } = req.body;
+  stripe.customers.create({
+    email,
+    source: source.id,
+  }, (err, customer) => {
+    if (err) {
+      console.log(err);
+    }
+    if (customer) {
+      console.log(customer);
+    }
+  });
   res.status(200).send('sucess');
 });
 
