@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5001;
 const Pwgen = require('pwgen');
+const stripe = require('stripe')('pk_test_6kVwvdGW58r0XdXjnI4i9ui4');
 const Traveler = require('./Models/travelerModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
@@ -440,6 +441,15 @@ server.post('/update-profile', (req, res) => {
       res.status(200).json(updatedUser);
     }
   });
+});
+
+/*=======================================================
+============= STRIPE ROUTES =============================
+=======================================================*/
+
+server.post('/create/customer', (req, res) => {
+  console.log('create customer: ');
+  console.log(req.body);
 });
 
 /*=======================================================
