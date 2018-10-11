@@ -461,6 +461,19 @@ server.post('/create/customer', (req, res) => {
     }
     if (customer) {
       console.log(customer);
+      const customerId = customer.id;
+      // TO-DO: Save customerId to MONGODB_URI
+      stripe.subscriptions.create({
+        customer: customerId,
+        items: [{plan: 'plan_Dkcc4ylrXTx2Wo'}],
+      }, (err, subscription) => {
+        if (err) {
+          console.log(err);
+        }
+        if (subscription) {
+          console.log(subscription);
+        }
+      });
     }
   });
   res.status(200).send('sucess');
