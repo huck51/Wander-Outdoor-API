@@ -95,6 +95,9 @@ const CompanySchema = new Schema({
     type: String,
     default: 'company',
   },
+  companyUrl: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
