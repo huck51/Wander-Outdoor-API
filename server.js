@@ -486,6 +486,7 @@ server.post('/create/customer', (req, res) => {
             if (foundUser) {
               foundUser.subscription = true;
               foundUser.costumer = customerId;
+              console.log(foundUser);
               foundUser.save();
             }
           });
