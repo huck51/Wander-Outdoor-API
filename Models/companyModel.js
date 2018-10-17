@@ -98,6 +98,11 @@ const CompanySchema = new Schema({
   companyUrl: {
     type: String,
   },
+  displayAuth: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
