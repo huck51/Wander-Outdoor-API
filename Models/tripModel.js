@@ -57,6 +57,9 @@ const TripSchema = new Schema({
     type: String,
     default: 'trip',
   },
+  tripUrl: {
+    type: String,
+  }
 });
 
 
