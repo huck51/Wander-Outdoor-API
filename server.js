@@ -448,10 +448,23 @@ server.post('/update-profile', (req, res) => {
 ============= STRIPE ROUTES =============================
 =======================================================*/
 
+const findUserAndUpdate = (id, updateObj, route) => {
+  User.findOneAndUpdate(id, updateObj, (err, updatedUser) => {
+    if (err) {
+      console.log(`findUserAndUpdate function ${route} ${err}`);
+      return null;
+    }
+    if (updatedUser) {
+      console.log(updatedUser);
+      return updatedUser;
+    }
+  });
+};
+
 server.post('/create/customer', (req, res) => {
   console.log('create customer: ');
   console.log(req.body);
-  const { email, source } = req.body;
+  const { email, fierceIce, source } = req.body;
   stripe.customers.create({
     email,
     source: source.id,
@@ -469,9 +482,15 @@ server.post('/create/customer', (req, res) => {
       }, (err, subscription) => {
         if (err) {
           console.log(err);
+          findUserAndUpdate(fierceIce, {customer: customerId}, '/create/customer - 464');
         }
         if (subscription) {
           console.log(subscription);
+          const updateObj = {
+            costumer: customerId,
+            subscription: true,
+          };
+          findUserAndUpdate(fierceIce, updateObj, '/create/customer - 464');
         }
       });
     }
