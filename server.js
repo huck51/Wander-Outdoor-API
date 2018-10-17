@@ -491,6 +491,8 @@ server.post('/create/customer', (req, res) => {
             costumer: customerId,
             subscription: true,
           };
+          console.log(fierceIce);
+          console.log(customerId);
           findUserAndUpdate(fierceIce, updateObj, '/create/customer - 464');
         }
       });
