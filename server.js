@@ -449,6 +449,7 @@ server.post('/update-profile', (req, res) => {
 =======================================================*/
 
 const findUserAndUpdate = (id, updateObj, route) => {
+  console.log(id);
   User.findOneAndUpdate(id, updateObj, (err, updatedUser) => {
     if (err) {
       console.log(`findUserAndUpdate function ${route} ${err}`);
