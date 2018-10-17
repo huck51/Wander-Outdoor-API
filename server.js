@@ -473,21 +473,17 @@ server.post('/create/customer', (req, res) => {
         if (subscription) {
           console.log(subscription);
           const updateObj = {
-            id: fierceIce,
-            costumer: customerId,
-            subscription: true,
+            customer: customerId,
+            subscribed: true,
           };
           console.log(fierceIce);
           console.log(customerId);
-          User.findOne({id: fierceIce}, (err, foundUser) => {
+          User.findOneAndUpdate({id: fierceIce}, updateObj, (err, foundUser) => {
             if (err) {
               console.log(`findUserAndUpdate function ${route} ${err}`);
             }
             if (foundUser) {
-              foundUser.subscription = true;
-              foundUser.costumer = customerId;
               console.log(foundUser);
-              foundUser.save();
             }
           });
         }
