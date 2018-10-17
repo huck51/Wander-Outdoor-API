@@ -448,20 +448,6 @@ server.post('/update-profile', (req, res) => {
 ============= STRIPE ROUTES =============================
 =======================================================*/
 
-const findUserAndUpdate = (id, updateObj, route) => {
-  console.log(updateObj);
-  User.findOneAndUpdate({id}, { updateObj }, (err, updatedUser) => {
-    if (err) {
-      console.log(`findUserAndUpdate function ${route} ${err}`);
-      return null;
-    }
-    if (updatedUser) {
-      console.log(updatedUser);
-      return updatedUser;
-    }
-  });
-};
-
 server.post('/create/customer', (req, res) => {
   console.log('create customer: ');
   console.log(req.body);
@@ -483,11 +469,11 @@ server.post('/create/customer', (req, res) => {
       }, (err, subscription) => {
         if (err) {
           console.log(err);
-          findUserAndUpdate(fierceIce, {customer: customerId}, '/create/customer - 464');
         }
         if (subscription) {
           console.log(subscription);
           const updateObj = {
+            id: fierceIce,
             costumer: customerId,
             subscription: true,
           };
