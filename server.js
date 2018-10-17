@@ -493,7 +493,14 @@ server.post('/create/customer', (req, res) => {
           };
           console.log(fierceIce);
           console.log(customerId);
-          findUserAndUpdate(fierceIce, updateObj, '/create/customer - 464');
+          User.findOneAndUpdate({id: fierceIce}, updateObj, (err, updatedUser) => {
+            if (err) {
+              console.log(`findUserAndUpdate function ${route} ${err}`);
+            }
+            if (updatedUser) {
+              console.log(updatedUser);
+            }
+          });
         }
       });
     }
