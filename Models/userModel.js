@@ -85,6 +85,17 @@ const UserSchema = new Schema({
   tags: {
     type: [String],
   },
+  companiesOwned: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Company'
+  },
+  customer: {
+    type: String,
+  },
+  subscribed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
