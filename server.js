@@ -479,12 +479,14 @@ server.post('/create/customer', (req, res) => {
           };
           console.log(fierceIce);
           console.log(customerId);
-          User.findOneAndUpdate({id: fierceIce}, updateObj, (err, updatedUser) => {
+          User.findOne({id: fierceIce}, (err, foundUser) => {
             if (err) {
               console.log(`findUserAndUpdate function ${route} ${err}`);
             }
-            if (updatedUser) {
-              console.log(updatedUser);
+            if (foundUser) {
+              foundUser.subscription = true;
+              foundUser.costumer = customerId;
+              foundUser.save();
             }
           });
         }
