@@ -400,7 +400,7 @@ server.post('/update-profile', (req, res) => {
     bio,
     companyCode,
     city,
-    state,
+    stateName,
     chex,
   } = req.body;
   const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), state.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
@@ -416,9 +416,10 @@ server.post('/update-profile', (req, res) => {
     bio,
     companyCode,
     city,
-    state,
+    stateName,
     chex,
     tags,
+    name: `${firstName lastName}`,
   };
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
@@ -504,7 +505,7 @@ server.post('/add-trip', (req, res) => {
     stateName,
     description,
     price,
-    company,
+    companyName,
     picture,
     chex,
   } = req.body;
@@ -515,7 +516,7 @@ server.post('/add-trip', (req, res) => {
     stateName,
     description,
     price,
-    company,
+    companyName,
     picture,
     chex,
     tags
@@ -546,9 +547,9 @@ server.get('/trips', (req, res) => {
   });
 });
 
-server.get('/trips/:company', (req, res) => {
-  const { company } = req.params;
-  Trip.find({ company }, (err, trips) => {
+server.get('/trips/:companyName', (req, res) => {
+  const { companyName } = req.params;
+  Trip.find({ companyName }, (err, trips) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
