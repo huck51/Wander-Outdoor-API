@@ -6,7 +6,7 @@ const TripSchema = new Schema({
     type: String,
     required: true,
   },
-  company: {
+  companyName: {
     type: String,
   },
   city: {

@@ -70,7 +70,7 @@ const UserSchema = new Schema({
   city: {
     type: String,
   },
-  state: {
+  stateName: {
     type: String,
   },
   reviews: {
