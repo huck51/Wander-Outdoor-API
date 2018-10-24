@@ -25,9 +25,7 @@ const TripSchema = new Schema({
     type: String,
     required: true,
   },
-  guides: {
-    type: [String],
-  },
+  guides: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rating: {
     rate: {
       type: Number,
