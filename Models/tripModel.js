@@ -40,9 +40,7 @@ const TripSchema = new Schema({
     type: String,
   },
   stats: {},
-  reviews: {
-    type: [String],
-  },
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   likes: {
     type: Number,
   },
