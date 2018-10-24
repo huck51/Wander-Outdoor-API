@@ -419,7 +419,7 @@ server.post('/update-profile', (req, res) => {
     stateName,
     chex,
     tags,
-    name: `${firstName lastName}`,
+    name: `${firstName} ${lastName}`,
   };
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
