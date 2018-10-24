@@ -45,10 +45,12 @@ const CompanySchema = new Schema({
     unique: true,
   },
   guides: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
+    ref: 'Guide'
   },
   trips: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
+    ref: 'Trip'
   },
   bio: {
     type: String,
