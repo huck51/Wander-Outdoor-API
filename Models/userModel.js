@@ -43,12 +43,8 @@ const UserSchema = new Schema({
     type: String,
   },
   stats: {},
-  tripsQualified: {
-    type: [String],
-  },
-  tripsCompleted: {
-    type: [String],
-  },
+  tripsQualified: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
+  tripsCompleted: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
   certs: {
     type: [String],
   },
