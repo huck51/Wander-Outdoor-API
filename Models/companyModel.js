@@ -44,14 +44,8 @@ const CompanySchema = new Schema({
     type: String,
     unique: true,
   },
-  guides: {
-    type: [Schema.Types.ObjectId],
-    ref: 'User'
-  },
-  trips: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Trip'
-  },
+  guides: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  trips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
   bio: {
     type: String,
   },
@@ -89,10 +83,7 @@ const CompanySchema = new Schema({
   tags: {
     type: [String],
   },
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-  },
+  owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   roleGroup: {
     type: String,
     default: 'company',
