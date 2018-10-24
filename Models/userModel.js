@@ -88,10 +88,7 @@ const UserSchema = new Schema({
   tags: {
     type: [String],
   },
-  companiesOwned: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Company'
-  },
+  companiesOwned: [{ type: Schema.Types.ObjectId, ref: 'Company' }],
   customer: {
     type: String,
   },
