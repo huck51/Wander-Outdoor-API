@@ -696,6 +696,33 @@ server.post('/cloudinary', (req, res) => {
 
 server.post('/contact-message', (req, res) => {
   const { name, email, message } = req.body;
+  console.log(tripRequest);
+  const transporter = nodemailer.createTransport({
+    service: 'Office365',
+    host: 'smtp.office365.com',
+    secureConnection: true,
+    port: 587,
+    auth: {
+      user: 'info@wanderoutdoor.co',
+      pass: process.env.NODEMAIL_KEY,
+    },
+  });
+
+  const mailOptions = {
+    from: 'info@wanderoutdoor.co',
+    to: 'info@wanderoutdoor.co',
+    subject: 'Contact Message',
+    text: `Sender Name: ${name} \n Sender Email: ${email} \n Sender Message: ${message}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(422).send(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
   const newMessage = new Message({ name, email, message });
   console.log(newMessage);
   newMessage.save((err, newMessage) => {
