@@ -71,9 +71,7 @@ const CompanySchema = new Schema({
   picture: {
     type: String,
   },
-  reviews: {
-    type: [String],
-  },
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   likes: {
     type: Number,
   },
@@ -83,7 +81,7 @@ const CompanySchema = new Schema({
   tags: {
     type: [String],
   },
-  owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
   roleGroup: {
     type: String,
     default: 'company',
