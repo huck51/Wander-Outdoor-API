@@ -532,9 +532,41 @@ server.post('/add-trip', (req, res) => {
   });
 });
 
-server.get('/edit-trip/:id', (req, res) => {
-   const { id } = req.params;
-
+server.post('/edit-trip', (req, res) => {
+   const {
+     id,
+     name,
+     description,
+     city,
+     stateName,
+     price,
+     picture,
+     chex,
+     companyName,
+     tripUrl
+   } = req.body;
+   const updateTrip = {
+     id,
+     name,
+     description,
+     city,
+     stateName,
+     price,
+     picture,
+     chex,
+     companyName,
+     tripUrl
+   };
+   Trip.findOne({ id }, updateTrip, (err, updatedTrip) => {
+     if (err) {
+       console.log(err);
+       return res.status(422).send('Error');
+     }
+     if (updatedTrip) {
+       console.log(updatedTrip);
+       return res.status(200).send('Success');
+     }
+   });
 });
 
 server.get('/trips', (req, res) => {
