@@ -73,9 +73,7 @@ const UserSchema = new Schema({
   stateName: {
     type: String,
   },
-  reviews: {
-    type: [Object],
-  },
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
   likes: {
     type: Number,
   },
