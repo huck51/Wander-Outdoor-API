@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   name: {
     type: String,
   },
+  company: { type: Schema.Types.ObjectId, ref: 'Company' },
   companyName: {
     type: String,
   },
