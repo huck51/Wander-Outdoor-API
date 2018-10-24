@@ -509,6 +509,15 @@ server.post('/add-trip', (req, res) => {
     picture,
     chex,
   } = req.body;
+  const parentCompany = Company.findOne({ companyName }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return null;
+    }
+    if (foundCompany) {
+      return foundCompany;
+    }
+  });
   const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const newTrip = new Trip({
     name,
@@ -519,7 +528,17 @@ server.post('/add-trip', (req, res) => {
     companyName,
     picture,
     chex,
-    tags
+    tags,
+    company: parentCompany._id,
+  });
+  parentCompany.trips.push(newTrip._id);
+  parentCompany.save((err, success) => {
+    if (err) {
+      console.log(err);
+    }
+    if (success) {
+      console.log(success);
+    }
   });
   newTrip.save((err, newTrip) => {
     if (err) {
