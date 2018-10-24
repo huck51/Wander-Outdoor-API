@@ -46,7 +46,7 @@ const CompanySchema = new Schema({
   },
   guides: {
     type: [Schema.Types.ObjectId],
-    ref: 'Guide'
+    ref: 'User'
   },
   trips: {
     type: [Schema.Types.ObjectId],
