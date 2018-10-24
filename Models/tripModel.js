@@ -6,6 +6,7 @@ const TripSchema = new Schema({
     type: String,
     required: true,
   },
+  company: { type: Schema.Types.ObjectId, ref: 'Company' },
   companyName: {
     type: String,
   },
