@@ -301,13 +301,13 @@ server.get('/guides/:company', (req, res) => {
     }
     if (foundCompany) {
       const { companyCode } = foundCompany;
-      User.find({ companyCode }, (err, companies) => {
+      User.find({ companyCode }, (err, users) => {
         if (err) {
           console.log(err);
           return res.status(422).send(err);
         }
-        if (companies) {
-          return res.status(200).json(companies);
+        if (users) {
+          return res.status(200).json(users);
         }
       });
     }
