@@ -291,25 +291,17 @@ server.get('/guides', (req, res) => {
   });
 });
 
-server.get('/guides/:company', (req, res) => {
-  const companyName = req.params.company;
-  console.log(companyName);
-  Company.findOne({ companyName }, (err, foundCompany) => {
+server.get('/guides/:companyCode', (req, res) => {
+  const { companyCode } = req.params;
+  Company.findOne({ companyCode }).
+    populate('guides').
+    exec((err, foundCompany) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
     if (foundCompany) {
-      const { companyCode } = foundCompany;
-      User.find({ companyCode }, (err, users) => {
-        if (err) {
-          console.log(err);
-          return res.status(422).send(err);
-        }
-        if (users) {
-          return res.status(200).json(users);
-        }
-      });
+      return res.status(200).json(foundCompany.guides);
     }
   });
 });
