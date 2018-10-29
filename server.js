@@ -574,11 +574,29 @@ server.post('/add-trip', async (req, res) => {
   });
   newTrip.save((err, newTrip) => {
     if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
+      res.status(422).json({ stack: err.stack, message: err.message });
     } else {
       console.log(newTrip);
-      res.json(newTrip);
+      if (newTrip.guides.length > 0) {
+        User.find({ _id: { $in: newTrip.guides } }, (err, guides) => {
+          if (err) {
+            console.log(err);
+          }
+          if (guides) {
+            for (let i = 0; i < guides.length; i++) {
+              guides[i].tripsQualified.push(newTrip._id);
+              guides[i].save().
+                then((guide) => {
+                  console.log(`Updated and saved ${guide.name}`);
+                }).
+                catch((err) => {
+                  console.log(err);
+                });
+            }
+          }
+        });
+      }
+      res.status(200).json(newTrip);
     }
   });
 });
