@@ -352,6 +352,36 @@ server.get('/guides/:username', (req, res) => {
   });
 });
 
+server.post('/link-guide-to-trip', (req, res) => {
+  const { guidesToLink } = req.body;
+  console.log(guidesToLink);
+  User.find({ _id: { $in: guidesToLink } }, (err, guides) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (guides) {
+      for (let i = 0; i < guides.length; i++) {
+        guides[i].tripsQualified.push(newTrip._id);
+        guides[i].save().
+          then((guide) => {
+            console.log(`Updated and saved ${guide.name}`);
+          }).
+          catch((err) => {
+            console.log(err);
+          });
+      }
+      return res.status(200).send('All guides successfully updated');
+    }
+  });
+});
+
+server.post('/unlink-guide-from-trip', (req, res) => {
+  const { guidesToUnlink } = req.body;
+  console.log(guidesToUnlink);
+  return res.status(200).send('success');
+});
+
 server.post('/remove-guide', (req, res) => {
   const { id } = req.body;
   console.log(req.body);
