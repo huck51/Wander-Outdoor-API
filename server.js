@@ -645,12 +645,23 @@ server.get('/trips/:company', (req, res) => {
 
 server.get('/trip/:id', (req, res) => {
   const { id } = req.params;
-  Trip.findOne({ _id: id }, (err, trip) => {
+  Trip.findOne({ _id: id }).
+    populate('guides', 'name _id').
+    populate({
+      path: 'company',
+      select: 'guides',
+      populate: {
+        path: 'guides',
+        select: 'name _id',
+      },
+    }).
+    exec((err, trip) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
     if (trip) {
+      console.log(trip);
       return res.status(200).json(trip);
     }
   });
