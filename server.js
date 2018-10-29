@@ -525,7 +525,7 @@ server.post('/create/customer', (req, res) => {
 ============= TRIP ROUTES ===============================
 =======================================================*/
 
-server.post('/add-trip', (req, res) => {
+server.post('/add-trip', async (req, res) => {
   const {
     name,
     city,
@@ -537,7 +537,7 @@ server.post('/add-trip', (req, res) => {
     chex,
     guides,
   } = req.body;
-  const parentCompany = Company.findOne({ companyCode }, (err, foundCompany) => {
+  const parentCompany = await Company.findOne({ companyCode }, (err, foundCompany) => {
     if (err) {
       console.log(err);
       return null;
