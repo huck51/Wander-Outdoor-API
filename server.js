@@ -594,8 +594,10 @@ server.post('/edit-trip', (req, res) => {
      picture,
      chex,
      companyName,
-     tripUrl
+     tripUrl,
+     guides,
    } = req.body;
+   const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
    const updateTrip = {
      id,
      name,
@@ -606,9 +608,11 @@ server.post('/edit-trip', (req, res) => {
      picture,
      chex,
      companyName,
-     tripUrl
+     tripUrl,
+     guides,
+     tags,
    };
-   Trip.findOne({ id }, updateTrip, (err, updatedTrip) => {
+   Trip.findByIdAndUpdate(id, updateTrip, (err, updatedTrip) => {
      if (err) {
        console.log(err);
        return res.status(422).send('Error');
