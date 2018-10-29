@@ -532,11 +532,12 @@ server.post('/add-trip', (req, res) => {
     stateName,
     description,
     price,
-    companyName,
+    companyCode,
     picture,
     chex,
+    guides,
   } = req.body;
-  const parentCompany = Company.findOne({ companyName }, (err, foundCompany) => {
+  const parentCompany = Company.findOne({ companyCode }, (err, foundCompany) => {
     if (err) {
       console.log(err);
       return null;
@@ -545,18 +546,20 @@ server.post('/add-trip', (req, res) => {
       return foundCompany;
     }
   });
-  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), company.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
+  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), parentCompany.companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const newTrip = new Trip({
     name,
     city,
     stateName,
     description,
     price,
-    companyName,
+    companyName: parentCompany.companyName,
     picture,
     chex,
     tags,
     company: parentCompany._id,
+    companyCode,
+    guides,
   });
   parentCompany.trips.push(newTrip._id);
   parentCompany.save((err, success) => {
