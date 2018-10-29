@@ -353,8 +353,9 @@ server.get('/guides/:username', (req, res) => {
 });
 
 server.post('/link-guide-to-trip', (req, res) => {
-  const { guidesToLink } = req.body;
+  const { guidesToLink, tripToLink } = req.body;
   console.log(guidesToLink);
+  console.log(tripToLink);
   User.find({ _id: { $in: guidesToLink } }, (err, guides) => {
     if (err) {
       console.log(err);
@@ -362,7 +363,7 @@ server.post('/link-guide-to-trip', (req, res) => {
     }
     if (guides) {
       for (let i = 0; i < guides.length; i++) {
-        guides[i].tripsQualified.push(newTrip._id);
+        guides[i].tripsQualified.push(tripToLink);
         guides[i].save().
           then((guide) => {
             console.log(`Updated and saved ${guide.name}`);
@@ -377,9 +378,29 @@ server.post('/link-guide-to-trip', (req, res) => {
 });
 
 server.post('/unlink-guide-from-trip', (req, res) => {
-  const { guidesToUnlink } = req.body;
+  const { guidesToUnlink, tripToUnlink } = req.body;
   console.log(guidesToUnlink);
-  return res.status(200).send('success');
+  console.log(tripToUnlink);
+  User.find({ _id: { $in: guidesToUnlink } }, (err, guides) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (guides) {
+      for (let i = 0; i < guides.length; i++) {
+        const target = guides[i].tripsQualified.indexOf(tripToUnlink);
+        guides[i].tripsQualified.splice(target, 1);
+        guides[i].save().
+          then((guide) => {
+            console.log(`Updated and saved ${guide.name}`);
+          }).
+          catch((err) => {
+            console.log(err);
+          });
+      }
+      return res.status(200).send('All guides successfully updated');
+    }
+  });
 });
 
 server.post('/remove-guide', (req, res) => {
