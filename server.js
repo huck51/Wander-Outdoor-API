@@ -139,6 +139,21 @@ server.get('/company/:companyName', (req, res) => {
   });
 });
 
+server.get('/company/guides/:companyCode', (req, res) => {
+  const { companyCode } = req.params;
+  Company.findOne({ companyCode }).
+    populate('guides').
+    exec((err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(422).send(err);
+    }
+    if (foundCompany) {
+      return res.status(200).json(foundCompany.guides);
+    }
+  });
+});
+
 server.post('/dashboard-companies', (req, res) => {
   const { id } = req.body;
   console.log(id);
