@@ -536,6 +536,7 @@ server.post('/add-trip', async (req, res) => {
     picture,
     chex,
     guides,
+    tripUrl
   } = req.body;
   const parentCompany = await Company.findOne({ companyCode }, (err, foundCompany) => {
     if (err) {
@@ -560,6 +561,7 @@ server.post('/add-trip', async (req, res) => {
     company: parentCompany._id,
     companyCode,
     guides,
+    tripUrl
   });
   parentCompany.trips.push(newTrip._id);
   parentCompany.save((err, success) => {
