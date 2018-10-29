@@ -625,9 +625,9 @@ server.get('/trips', (req, res) => {
   });
 });
 
-server.get('/trips/:companyName', (req, res) => {
-  const { companyName } = req.params;
-  Trip.find({ companyName }, (err, trips) => {
+server.get('/trips/:company', (req, res) => {
+  const companyCode = req.params.company;
+  Trip.find({ companyCode }, (err, trips) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
