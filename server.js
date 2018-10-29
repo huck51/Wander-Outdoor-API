@@ -308,15 +308,19 @@ server.get('/guides', (req, res) => {
 
 server.get('/guides/:companyCode', (req, res) => {
   const { companyCode } = req.params;
-  Company.findOne({ companyCode }).
-    populate('guides').
-    exec((err, foundCompany) => {
+  User.find({ companyCode }, (err, guides) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
-    if (foundCompany) {
-      return res.status(200).json(foundCompany.guides);
+    if (guides) {
+      const filteredGuides = [];
+      for (let i = 0; i < guides.length; i++) {
+        if (!(guides[i].company)) {
+          filteredGuides.push(guides[i]);
+        }
+      }
+      return res.status(200).json(filteredGuides);
     }
   });
 });
