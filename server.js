@@ -125,6 +125,22 @@ server.get('/testy-puller', (req, res) => {
 /*=======================================================
 ============= COMPANY ROUTES ============================
 =======================================================*/
+
+server.post('/add-guides-to-company', (req, res) => {
+  const { companyCode, guides } = req.body;
+  Company.findOne({ companyCode }, (err, company) => {
+    if (err) {
+      console.error(err);
+      return res.status(422).json({stack: err.stack, message: err.message});
+    }
+    if (company) {
+      company.guides.push(guides);
+      company.save();
+      return res.status(200).send('Success');
+    }
+  });
+});
+
 server.get('/company/:companyName', (req, res) => {
   const { companyName } = req.params;
   console.log(companyName);
