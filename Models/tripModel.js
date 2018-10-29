@@ -10,6 +10,9 @@ const TripSchema = new Schema({
   companyName: {
     type: String,
   },
+  companyCode: {
+    type: String,
+  },
   city: {
     type: String,
     requried: true,
