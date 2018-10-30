@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 5001;
 const Pwgen = require('pwgen');
 const Review = require('./Models/reviewModel');
 const stripe = require('stripe')(process.env.STRIPEKEY);
-const Traveler = require('./Models/travelerModel');
 const Trip = require('./Models/tripModel');
 const User = require('./Models/userModel');
 
