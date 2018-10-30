@@ -142,6 +142,31 @@ server.post('/add-guides-to-company', (req, res) => {
   });
 });
 
+server.post('/company-update-reviews', (req, res) => {
+  const { reviews, company, rating } = req.body;
+  User.findOne({ companyCode: company }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundCompany) {
+      console.log(foundCompany);
+      foundCompany.reviews = reviews;
+      foundCompany.rating = rating;
+      foundCompany.save((err, savedCompany) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedCompany) {
+          console.log(savedCompany);
+          return res.status(200).json(savedCompany);
+        }
+      });
+    }
+  });
+});
+
 server.get('/company/:company', (req, res) => {
   const companyCode = req.params.company;
   console.log(companyCode);
@@ -338,7 +363,7 @@ server.post('/guide-update-reviews', (req, res) => {
           console.log(savedGuide);
           return res.status(200).json(savedGuide);
         }
-      })
+      });
     }
   });
 });
