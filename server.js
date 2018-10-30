@@ -143,7 +143,10 @@ server.post('/add-guides-to-company', (req, res) => {
 
 server.get('/company/:company', (req, res) => {
   const companyCode = req.params.company;
-  Company.findOne({ companyCode }, (err, company) => {
+  Company.findOne({ companyCode }).
+    populate('guides').
+    populate('trips').
+    exec(err, company) => {
     if (err) {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
