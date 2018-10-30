@@ -761,6 +761,31 @@ server.get('/trips', (req, res) => {
   });
 });
 
+server.post('/trip-update-reviews', (req, res) => {
+  const { reviews, id, rating } = req.body;
+  User.findOne({ _id: id }, (err, foundTrip) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundTrip) {
+      console.log(foundTrip);
+      foundTrip.reviews = reviews;
+      foundTrip.rating = rating;
+      foundTrip.save((err, savedTrip) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedTrip) {
+          console.log(savedTrip);
+          return res.status(200).json(savedTrip);
+        }
+      });
+    }
+  });
+});
+
 server.get('/trips/:company', (req, res) => {
   const companyCode = req.params.company;
   Trip.find({ companyCode }, (err, trips) => {
