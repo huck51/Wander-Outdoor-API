@@ -143,16 +143,17 @@ server.post('/add-guides-to-company', (req, res) => {
 
 server.get('/company/:company', (req, res) => {
   const companyCode = req.params.company;
+  console.log(companyCode);
   Company.findOne({ companyCode }).
     populate('guides').
     populate('trips').
-    exec((err, company) => {
+    exec((err, foundCompany) => {
     if (err) {
       console.error(err);
       return res.status(422).json({stack: err.stack, message: err.message});
     } else {
-      console.log(company);
-      return res.status(200).send(company);
+      console.log(foundCompany);
+      return res.status(200).send(foundCompany);
     }
   });
 });
@@ -197,7 +198,7 @@ server.post('/dashboard-companies', (req, res) => {
 });
 
 server.get('/guiding-companies', (req, res) => {
-  Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1, rating: 1, roleGroup: 1 }, (err, allCompanies) => {
+  Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1, rating: 1, roleGroup: 1, companyCode: 1 }, (err, allCompanies) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
