@@ -316,6 +316,31 @@ server.post('/find-user', (req, res) => {
   });
 });
 
+server.post('/guide-update-reviews', (req, res) => {
+  const { reviews, id, rating } = req.body;
+  User.findOne({ id }, (err, foundGuide) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundGuide) {
+      console.log(foundGuide);
+      foundGuide.reviews = reviews;
+      foundGuide.rating = rating;
+      foundGuide.save((err, savedGuide) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedGuide) {
+          console.log(savedGuide);
+          return res.status(200).json(savedGuide);
+        }
+      })
+    }
+  });
+});
+
 server.get('/guides', (req, res) => {
   User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, name: 1, companyName: 1, companyEmail: 1, city: 1, stateName: 1, roleGroup: 1, picture: 1, id: 1, rating: 1, _id: 0 }, (err, allGuides) => {
     if (err) {
