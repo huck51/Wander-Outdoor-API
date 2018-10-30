@@ -172,6 +172,7 @@ server.get('/company/:company', (req, res) => {
   console.log(companyCode);
   Company.findOne({ companyCode }).
     populate('guides').
+    populate('reviews').
     populate('trips').
     exec((err, foundCompany) => {
     if (err) {
@@ -811,6 +812,7 @@ server.get('/trip/:id', (req, res) => {
         select: 'name _id',
       },
     }).
+    populate('reviews').
     exec((err, trip) => {
     if (err) {
       console.log(err);
