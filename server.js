@@ -305,6 +305,7 @@ server.post('/find-user', (req, res) => {
   console.log(id);
   User.findOne({ id }).
     populate('company').
+    populate('reviews').
     populate('tripsQualified').
     exec((err, foundUser) => {
     if (err) {
