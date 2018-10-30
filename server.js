@@ -144,7 +144,7 @@ server.post('/add-guides-to-company', (req, res) => {
 
 server.post('/company-update-reviews', (req, res) => {
   const { reviews, company, rating } = req.body;
-  User.findOne({ companyCode: company }, (err, foundCompany) => {
+  Company.findOne({ companyCode: company }, (err, foundCompany) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
@@ -764,7 +764,7 @@ server.get('/trips', (req, res) => {
 
 server.post('/trip-update-reviews', (req, res) => {
   const { reviews, id, rating } = req.body;
-  User.findOne({ _id: id }, (err, foundTrip) => {
+  Trip.findOne({ _id: id }, (err, foundTrip) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
