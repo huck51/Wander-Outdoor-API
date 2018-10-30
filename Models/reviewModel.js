@@ -14,6 +14,9 @@ const ReviewSchema = new Schema({
     type: String,
     default: new Date().toUTCString(),
   },
+  rate: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('Review', ReviewSchema);
