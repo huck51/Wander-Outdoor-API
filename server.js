@@ -790,6 +790,32 @@ server.post('/request-trip', (req, res) => {
 });
 
 /*=======================================================
+============= REVIEW ROUTES =============================
+=======================================================*/
+
+server.post('/new-review', (req, res) => {
+  const { newReview } = req.body;
+  console.log(newReview);
+  const newRev = new Review({
+    author: newReview.author,
+    text: newReview.text,
+    rate: newReview.rate,
+    date: newReview.date,
+  });
+  newRev.save((err, savedReview) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (savedReview) {
+      console.log(savedReview);
+      return res.status(200).json(savedReview);
+    }
+  });
+});
+
+
+/*=======================================================
 ============= OTHER ROUTES ==============================
 =======================================================*/
 
