@@ -8,7 +8,6 @@ const ReviewSchema = new Schema({
   },
   text: {
     type: String,
-    required: true,
   },
   date: {
     type: String,
@@ -16,6 +15,7 @@ const ReviewSchema = new Schema({
   },
   rate: {
     type: Number,
+    required: true,
   },
 });
 
