@@ -4,7 +4,6 @@ const cloudinary = require('cloudinary');
 const Company = require('./Models/companyModel');
 const cors = require('cors');
 const express = require('express');
-const Guide = require('./Models/guideModel');
 const ManagementClient = require('auth0').ManagementClient;
 const Message = require('./Models/messageModel');
 const mongoose = require('mongoose');
@@ -400,17 +399,6 @@ server.get('/guides/:companyCode', (req, res) => {
   });
 });
 
-server.get('/guides/:username', (req, res) => {
-  const { username } = req.params;
-  Guide.findOne({ username }, (err, guide) => {
-    if (err) {
-      res.status(422).json({ stack: err.stack, message: err.message });
-    } else {
-      res.status(200).send(guide);
-    }
-  });
-});
-
 server.post('/link-guide-to-trip', (req, res) => {
   const { guidesToLink, tripToLink } = req.body;
   console.log(guidesToLink);
@@ -462,19 +450,6 @@ server.post('/unlink-guide-from-trip', (req, res) => {
   });
 });
 
-server.post('/remove-guide', (req, res) => {
-  const { id } = req.body;
-  console.log(req.body);
-  Guide.findByIdAndRemove(id, (err, guide) => {
-    if (err) {
-      return res.status(500).send(err);
-    } else {
-      console.log(guide);
-      res.status(200).send(guide);
-    }
-  });
-});
-
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
   User.findOne({ id }, (err, foundUser) => {
@@ -509,19 +484,6 @@ server.post('/signup-newuser', (req, res) => {
       return res.status(200).json(foundUser);
     }
   })
-});
-
-server.post('/signup/guide', (req, res) => {
-  const { firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs } = req.body;
-  const newGuide = new Guide({ firstName, lastName, companyName, companyCode, email, phone, DOB, username, password, bio, certs });
-  newGuide.save((err, newGuide) => {
-    if (err) {
-      res.status(422);
-      res.json({ stack: err.stack, message: err.message });
-    } else {
-      res.json(newGuide);
-    }
-  });
 });
 
 server.post('/update-profile', (req, res) => {
