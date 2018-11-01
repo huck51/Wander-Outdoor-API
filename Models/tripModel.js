@@ -47,6 +47,9 @@ const TripSchema = new Schema({
   likes: {
     type: Number,
   },
+  activities: {
+    type: [String],
+  },
   chex:{
     type: [String],
   },
