@@ -903,7 +903,6 @@ server.post('/cloudinary', (req, res) => {
 
 server.post('/contact-message', (req, res) => {
   const { name, email, message } = req.body;
-  console.log(tripRequest);
   const transporter = nodemailer.createTransport({
     service: 'Office365',
     host: 'smtp.office365.com',
