@@ -687,8 +687,9 @@ server.post('/edit-trip', (req, res) => {
      companyName,
      tripUrl,
      guides,
+     activities,
    } = req.body;
-   const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
+   const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); })).concat(activities.map(activity => { return activity.toLowerCase(); }));
    const updateTrip = {
      id,
      name,
@@ -702,6 +703,7 @@ server.post('/edit-trip', (req, res) => {
      tripUrl,
      guides,
      tags,
+     activities,
    };
    Trip.findByIdAndUpdate(id, updateTrip, (err, updatedTrip) => {
      if (err) {
