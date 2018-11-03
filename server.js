@@ -503,6 +503,7 @@ server.post('/update-profile', (req, res) => {
     stateName,
     chex,
   } = req.body;
+  const activities = chex;
   const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), stateName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const updateObject = {
     firstName,
@@ -520,6 +521,7 @@ server.post('/update-profile', (req, res) => {
     chex,
     tags,
     name: `${firstName} ${lastName}`,
+    activities,
   };
   User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
     if (err) {
