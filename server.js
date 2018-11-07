@@ -772,7 +772,7 @@ server.get('/trips/:company', (req, res) => {
 server.get('/trip/:id', (req, res) => {
   const { id } = req.params;
   Trip.findOne({ _id: id }).
-    populate('guides', 'name _id').
+    populate('guides').
     populate({
       path: 'company',
       select: 'guides',
