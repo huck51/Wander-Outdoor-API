@@ -300,7 +300,6 @@ server.post('/update/guiding-company', (req, res) => {
   const { updateObject } = req.body;
   updateObject.roleGroup = 'company';
   updateObject.tags = [updateObject.companyName.toLowerCase(), updateObject.city.toLowerCase(), updateObject.stateName.toLowerCase(), updateObject.zipCode, 'company'].concat(updateObject.chex.map(check => { return check.toLowerCase(); }));
-  updateObject.activities = updateObject.chex;
   const id = updateObject.owner;
   delete updateObject.owner;
   User.findOne({ id }, (err, foundOwner) => {
