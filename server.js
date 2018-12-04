@@ -255,6 +255,7 @@ server.post('/signup/guiding-company', (req, res) => {
     chex,
     picture,
     owner,
+    activities,
   } = req.body;
   const companyCode = companyName + code;
   const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex.map(check => { return check.toLowerCase(); }));
@@ -277,7 +278,7 @@ server.post('/signup/guiding-company', (req, res) => {
         contactEmail,
         companyCode,
         bio,
-        activities: chex,
+        activities,
         chex,
         tags,
         picture,
