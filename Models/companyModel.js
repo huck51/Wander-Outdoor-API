@@ -94,6 +94,10 @@ const CompanySchema = new Schema({
     default: false,
     required: true,
   },
+  profileNum: {
+    type: String,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model('Company', CompanySchema);
