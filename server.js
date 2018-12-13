@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary');
 const Company = require('./Models/companyModel');
 const cors = require('cors');
+const cryptoRandomString = require('crypto-random-string');
 const express = require('express');
 const ManagementClient = require('auth0').ManagementClient;
 const Message = require('./Models/messageModel');
@@ -257,7 +258,8 @@ server.post('/signup/guiding-company', (req, res) => {
     owner,
     activities,
   } = req.body;
-  const companyCode = companyName + code;
+  const companyCode = companyName.split(' ').join('') + code;
+  const profileNum = cryptoRandomString(25);
   const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex.map(check => { return check.toLowerCase(); }));
   User.findOne({ id: owner }, (err, foundUser) => {
     if (err) {
@@ -282,7 +284,8 @@ server.post('/signup/guiding-company', (req, res) => {
         chex,
         tags,
         picture,
-        owner: foundUser._id
+        owner: foundUser._id,
+        profileNum,
       });
       newCompany.save((err, newCompany) => {
         if (err) {
@@ -342,6 +345,10 @@ server.post('/find-user', (req, res) => {
       return res.status(200).json(foundUser);
     }
   });
+});
+
+server.post('/guide-bot', (req, res) => {
+  return res.status(200).send('Star Wars');
 });
 
 server.post('/guide-update-reviews', (req, res) => {
@@ -453,10 +460,11 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 
 server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
+  const profileNum = cryptoRandomString(25);
   User.findOne({ id }, (err, foundUser) => {
     if (err) {
       console.log(err);
-      const newUser = new User({ id, email });
+      const newUser = new User({ id, email, profileNum });
       newUser.save((err, newUser) => {
         if (err) {
           console.log('if err');
@@ -469,7 +477,7 @@ server.post('/signup-newuser', (req, res) => {
       });
     }
     if(!foundUser) {
-      const newUser = new User({ id, email });
+      const newUser = new User({ id, email, profileNum });
       newUser.save((err, newUser) => {
         if (err) {
           console.log('if !foundUser');
@@ -623,6 +631,7 @@ server.post('/add-trip', async (req, res) => {
       return foundCompany;
     }
   });
+  const profileNum = cryptoRandomString(25);
   const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), parentCompany.companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); })).concat(activities.map(activity => { return activity.toLowerCase(); }));
   const newTrip = new Trip({
     name,
@@ -639,6 +648,7 @@ server.post('/add-trip', async (req, res) => {
     guides,
     tripUrl,
     activities,
+    profileNum,
   });
   parentCompany.trips.push(newTrip._id);
   parentCompany.save((err, success) => {
