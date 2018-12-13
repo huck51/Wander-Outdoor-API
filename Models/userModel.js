@@ -91,6 +91,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  profileNum: {
+    type: String,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
