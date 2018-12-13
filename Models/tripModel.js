@@ -62,7 +62,11 @@ const TripSchema = new Schema({
   },
   tripUrl: {
     type: String,
-  }
+  },
+  profileNum: {
+    type: String,
+    unique: true,
+  },
 });
 
 
