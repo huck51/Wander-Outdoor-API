@@ -469,6 +469,7 @@ server.post('/signup-newuser', (req, res) => {
     }
     if (newUser) {
       const middleManagement = await authZeroProcess();
+      console.log(middleManagement);
       return res.status(200).json({ newUser, middleManagement });
     }
   });
