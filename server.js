@@ -85,7 +85,7 @@ const authZeroProcess = () => {
     }
   };
 
-  axios(options)
+  return axios(options)
   .then(response => {
     return response.data;
   })
