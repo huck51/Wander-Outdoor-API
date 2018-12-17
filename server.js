@@ -459,7 +459,7 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 });
 
 server.post('/signup-newuser', (req, res) => {
-  const { id, email } = req.body;
+  const { id, email, sub } = req.body;
   const profileNum = cryptoRandomString(25);
   const newUser = new User({ id, email, profileNum });
   newUser.save(async (err, newUser) => {
@@ -469,7 +469,26 @@ server.post('/signup-newuser', (req, res) => {
     }
     if (newUser) {
       const middleManagement = await authZeroProcess();
-      return res.status(200).json({ newUser, middleManagement });
+      axios({
+        method: 'PATCH',
+        url: `https://wander-outdoor.auth0.com/api/v2/users/${sub}`,
+        headers:
+         {
+           'Cache-Control': 'no-cache',
+           authorization: `Bearer ${middleManagement.access_token}`,
+           'content-type': 'application/json'
+         },
+        data: { user_metadata: { linked: true } },
+      })
+      .then(response => {
+        console.log(response);
+        return res.status(200).json({ success: "yaaayyyy" });
+      })
+      .catch(error => {
+        console.log(error);
+        return res.status(200).json({ failure: "boooooooo" });
+      });
+      return res.status(200).json({ success: "yaaayyyy" });
     }
   });
 });
