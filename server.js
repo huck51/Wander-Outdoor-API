@@ -481,12 +481,10 @@ server.post('/signup-newuser', (req, res) => {
         data: { user_metadata: { linked: true } },
       })
       .then(response => {
-        console.log(response);
-        return res.status(200).json({ success: "yaaayyyy" });
+        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
-        return res.status(200).json({ failure: "boooooooo" });
       });
       return res.status(200).json({ success: "yaaayyyy" });
     }
