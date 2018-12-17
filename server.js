@@ -462,13 +462,13 @@ server.post('/signup-newuser', (req, res) => {
   const { id, email } = req.body;
   const profileNum = cryptoRandomString(25);
   const newUser = new User({ id, email, profileNum });
-  newUser.save((err, newUser) => {
+  newUser.save(async (err, newUser) => {
     if (err) {
       console.log(err);
       return res.status(422).send(err);
     }
     if (newUser) {
-      const middleManagement = authZeroProcess();
+      const middleManagement = await authZeroProcess();
       return res.status(200).json({ newUser, middleManagement });
     }
   });
