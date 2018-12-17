@@ -459,6 +459,7 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 });
 
 server.post('/signup-newuser', (req, res) => {
+  console.log(authZeroProcess());
   const { id, email } = req.body;
   const profileNum = cryptoRandomString(25);
   const newUser = new User({ id, email, profileNum });
