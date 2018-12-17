@@ -459,7 +459,6 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 });
 
 server.post('/signup-newuser', (req, res) => {
-  console.log(authZeroProcess());
   const { id, email } = req.body;
   const profileNum = cryptoRandomString(25);
   const newUser = new User({ id, email, profileNum });
@@ -470,7 +469,6 @@ server.post('/signup-newuser', (req, res) => {
     }
     if (newUser) {
       const middleManagement = await authZeroProcess();
-      console.log(middleManagement);
       return res.status(200).json({ newUser, middleManagement });
     }
   });
