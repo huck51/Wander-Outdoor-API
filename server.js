@@ -347,6 +347,23 @@ server.post('/find-user', (req, res) => {
   });
 });
 
+server.get('/get-user-profile/:profileNum', (req, res) => {
+  const { profileNum } = req.params;
+  User.findOne({ profileNum }).
+    populate('company').
+    populate('reviews').
+    populate('tripsQualified').
+    exec((err, foundUser) => {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    if (foundUser) {
+      console.log(foundUser);
+      return res.status(200).json(foundUser);
+    }
+  });
+});
+
 server.post('/guide-bot', (req, res) => {
   return res.status(200).send('Star Wars');
 });
