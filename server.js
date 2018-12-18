@@ -587,7 +587,7 @@ server.post('/update-profile', (req, res) => {
 server.post('/create/customer', (req, res) => {
   console.log('create customer: ');
   console.log(req.body);
-  const { email, fierceIce, source } = req.body;
+  const { email, id, source } = req.body;
   stripe.customers.create({
     email,
     source: source.id,
@@ -612,9 +612,8 @@ server.post('/create/customer', (req, res) => {
             customer: customerId,
             subscribed: true,
           };
-          console.log(fierceIce);
           console.log(customerId);
-          User.findOneAndUpdate({id: fierceIce}, updateObj, (err, foundUser) => {
+          User.findOneAndUpdate({id}, updateObj, (err, foundUser) => {
             if (err) {
               console.log(`findUserAndUpdate function ${route} ${err}`);
             }
