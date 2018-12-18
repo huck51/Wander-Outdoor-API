@@ -460,7 +460,6 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 
 server.get('/setup-profile/:id', (req, res) => {
   const { id } = req.params;
-  console.log(id);
   User.findOne({ id }, { firstName: 1, lastName: 1, profileNum: 1, roleGroup: 1 }, (err, foundUser) => {
     if (err) {
       console.log(err);
@@ -531,7 +530,6 @@ server.post('/update-profile', (req, res) => {
     phone,
     roleGroup,
     picture,
-    id,
     bio,
     companyCode,
     city,
@@ -541,7 +539,7 @@ server.post('/update-profile', (req, res) => {
     name: `${firstName} ${lastName}`,
     activities,
   };
-  User.findOneAndUpdate({ id: updateObject.id }, updateObject, (err, updatedUser) => {
+  User.findOneAndUpdate({ id }, updateObject, (err, updatedUser) => {
     if (err) {
       res.status(422).send(err);
     }
