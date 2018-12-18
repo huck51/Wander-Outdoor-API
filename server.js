@@ -460,7 +460,7 @@ server.post('/unlink-guide-from-trip', (req, res) => {
 
 server.get('/setup-profile/:id', (req, res) => {
   const { id } = req.params;
-  User.findOne({ id }, { firstName: 1, lastName: 1, profileNum: 1, roleGroup: 1 }(err, foundUser) => {
+  User.findOne({ id }, { firstName: 1, lastName: 1, profileNum: 1, roleGroup: 1 }, (err, foundUser) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
