@@ -394,7 +394,7 @@ server.post('/guide-update-reviews', (req, res) => {
 });
 
 server.get('/guides', (req, res) => {
-  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, name: 1, companyName: 1, companyEmail: 1, city: 1, stateName: 1, roleGroup: 1, picture: 1, id: 1, rating: 1, _id: 0 }, (err, allGuides) => {
+  User.find({ roleGroup: 'guide' }, { firstName: 1, lastName:1, name: 1, companyName: 1, companyEmail: 1, city: 1, stateName: 1, roleGroup: 1, picture: 1, id: 1, rating: 1, profileNum: 1, _id: 0 }, (err, allGuides) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
