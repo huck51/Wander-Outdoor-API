@@ -224,7 +224,7 @@ server.post('/dashboard-companies', (req, res) => {
 });
 
 server.get('/guiding-companies', (req, res) => {
-  Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1, rating: 1, roleGroup: 1, companyCode: 1 }, (err, allCompanies) => {
+  Company.find({}, { companyName: 1, city: 1, stateName: 1, picture: 1, rating: 1, roleGroup: 1, companyCode: 1, profileNum: 1 }, (err, allCompanies) => {
     if (err) {
       res.status(422);
       res.json({ stack: err.stack, message: err.message });
