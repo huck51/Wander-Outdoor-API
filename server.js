@@ -803,9 +803,9 @@ server.get('/trips/:company', (req, res) => {
   });
 });
 
-server.get('/trip/:id', (req, res) => {
-  const { id } = req.params;
-  Trip.findOne({ _id: id }).
+server.get('/trip/:profileNum', (req, res) => {
+  const { profileNum } = req.params;
+  Trip.findOne({ profileNum }).
     populate('guides').
     populate({
       path: 'company',
