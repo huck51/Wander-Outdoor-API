@@ -167,9 +167,8 @@ server.post('/company-update-reviews', (req, res) => {
 });
 
 server.get('/company/:company', (req, res) => {
-  const companyCode = req.params.company;
-  console.log(companyCode);
-  Company.findOne({ companyCode }).
+  const profileNum = req.params.company;
+  Company.findOne({ profileNum }).
     populate('guides').
     populate('reviews').
     populate('trips').
