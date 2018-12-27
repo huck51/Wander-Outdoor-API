@@ -812,7 +812,7 @@ server.get('/trip/:profileNum', (req, res) => {
       select: 'guides',
       populate: {
         path: 'guides',
-        select: 'name _id',
+        select: 'name _id profileNum',
       },
     }).
     populate('reviews').
