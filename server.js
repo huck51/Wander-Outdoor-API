@@ -284,7 +284,7 @@ server.post('/signup/guiding-company', (req, res) => {
       });
       return newCompany.save();
     })
-    .then(savedCompany => User.findByIdAndUpdate(savedCompany.owner, { $push: { companiesOwned: savedCompany._id }, { companyCode: savedCompany.companyCode }}))
+    .then(savedCompany => User.findByIdAndUpdate(savedCompany.owner, { $push: { companiesOwned: savedCompany._id }, companyCode: savedCompany.companyCode }))
     .then(result => {
       console.log(result);
       res.status(200).send('Successfully added company!');
