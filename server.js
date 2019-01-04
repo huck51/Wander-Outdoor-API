@@ -260,7 +260,7 @@ server.post('/signup/guiding-company', (req, res) => {
   const companyCode = companyName.split(' ').join('') + code;
   const profileNum = cryptoRandomString(25);
   const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex.map(check => { return check.toLowerCase(); }));
-  User.findbyId(owner)
+  User.findById(owner)
     .then(foundUser => {
       const newCompany = new Company({
         companyName,
