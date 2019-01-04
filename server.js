@@ -260,12 +260,8 @@ server.post('/signup/guiding-company', (req, res) => {
   const companyCode = companyName.split(' ').join('') + code;
   const profileNum = cryptoRandomString(25);
   const tags = [companyName.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), zipCode].concat(chex.map(check => { return check.toLowerCase(); }));
-  User.findOne({ id: owner }, (err, foundUser) => {
-    if (err) {
-      console.log(err);
-      return res.status(422).send(err);
-    }
-    if (foundUser) {
+  User.findbyId(owner)
+    .then(foundUser => {
       const newCompany = new Company({
         companyName,
         streetAddress,
@@ -286,17 +282,17 @@ server.post('/signup/guiding-company', (req, res) => {
         owner: foundUser._id,
         profileNum,
       });
-      newCompany.save((err, newCompany) => {
-        if (err) {
-          res.status(422);
-          res.json({ stack: err.stack, message: err.message });
-        } else {
-          console.log(newCompany);
-          res.json(newCompany);
-        }
-      });
-    }
-  });
+      return newCompany.save();
+    })
+    .then(savedCompany => User.findByIdAndUpdate(savedCompany.owner, { $push: { companiesOwned: savedCompany._id }, { companyCode: savedCompany.companyCode }}))
+    .then(result => {
+      console.log(result);
+      res.status(200).send('Successfully added company!');
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(503).send(err);
+    });
 });
 
 server.post('/update/guiding-company', (req, res) => {
