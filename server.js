@@ -366,7 +366,7 @@ server.post('/guide-bot', (req, res) => {
 
 server.post('/guide-update-reviews', (req, res) => {
   const { reviews, id, rating } = req.body;
-  User.findOne({ id }, (err, foundGuide) => {
+  User.findOne({ profileNum: id }, (err, foundGuide) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
