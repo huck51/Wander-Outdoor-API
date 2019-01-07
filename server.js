@@ -764,7 +764,7 @@ server.get('/trips', (req, res) => {
 
 server.post('/trip-update-reviews', (req, res) => {
   const { reviews, id, rating } = req.body;
-  Trip.findOne({ _id: id }, (err, foundTrip) => {
+  Trip.findOne({ profileNum: id }, (err, foundTrip) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
