@@ -143,7 +143,7 @@ server.post('/add-guides-to-company', (req, res) => {
 
 server.post('/company-update-reviews', (req, res) => {
   const { reviews, company, rating } = req.body;
-  Company.findOne({ companyCode: company }, (err, foundCompany) => {
+  Company.findOne({ profileNum: company }, (err, foundCompany) => {
     if (err) {
       console.log(err);
       return res.status(503).send(err);
