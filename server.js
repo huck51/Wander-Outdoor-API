@@ -141,31 +141,6 @@ server.post('/add-guides-to-company', (req, res) => {
   });
 });
 
-server.post('/company-update-reviews', (req, res) => {
-  const { reviews, company, rating } = req.body;
-  Company.findOne({ profileNum: company }, (err, foundCompany) => {
-    if (err) {
-      console.log(err);
-      return res.status(503).send(err);
-    }
-    if (foundCompany) {
-      console.log(foundCompany);
-      foundCompany.reviews = reviews;
-      foundCompany.rating = rating;
-      foundCompany.save((err, savedCompany) => {
-        if (err) {
-          console.log(err);
-          return res.status(503).send(err);
-        }
-        if (savedCompany) {
-          console.log(savedCompany);
-          return res.status(200).json(savedCompany);
-        }
-      });
-    }
-  });
-});
-
 server.get('/company/:company', (req, res) => {
   const profileNum = req.params.company;
   Company.findOne({ profileNum }).
@@ -362,31 +337,6 @@ server.get('/get-user-profile/:profileNum', (req, res) => {
 
 server.post('/guide-bot', (req, res) => {
   return res.status(200).send('Star Wars');
-});
-
-server.post('/guide-update-reviews', (req, res) => {
-  const { reviews, profileNum, rating } = req.body;
-  User.findOne({ profileNum }, (err, foundGuide) => {
-    if (err) {
-      console.log(err);
-      return res.status(503).send(err);
-    }
-    if (foundGuide) {
-      console.log(foundGuide);
-      foundGuide.reviews = reviews;
-      foundGuide.rating = rating;
-      foundGuide.save((err, savedGuide) => {
-        if (err) {
-          console.log(err);
-          return res.status(503).send(err);
-        }
-        if (savedGuide) {
-          console.log(savedGuide);
-          return res.status(200).json(savedGuide);
-        }
-      });
-    }
-  });
 });
 
 server.get('/guides', (req, res) => {
@@ -762,31 +712,6 @@ server.get('/trips', (req, res) => {
   });
 });
 
-server.post('/trip-update-reviews', (req, res) => {
-  const { reviews, id, rating } = req.body;
-  Trip.findOne({ profileNum: id }, (err, foundTrip) => {
-    if (err) {
-      console.log(err);
-      return res.status(503).send(err);
-    }
-    if (foundTrip) {
-      console.log(foundTrip);
-      foundTrip.reviews = reviews;
-      foundTrip.rating = rating;
-      foundTrip.save((err, savedTrip) => {
-        if (err) {
-          console.log(err);
-          return res.status(503).send(err);
-        }
-        if (savedTrip) {
-          console.log(savedTrip);
-          return res.status(200).json(savedTrip);
-        }
-      });
-    }
-  });
-});
-
 server.get('/trips/:company', (req, res) => {
   const companyCode = req.params.company;
   Trip.find({ companyCode }, (err, trips) => {
@@ -872,6 +797,56 @@ server.post('/request-trip', (req, res) => {
 ============= REVIEW ROUTES =============================
 =======================================================*/
 
+server.post('/company-update-reviews', (req, res) => {
+  const { reviews, company, rating } = req.body;
+  Company.findOne({ profileNum: company }, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundCompany) {
+      console.log(foundCompany);
+      foundCompany.reviews = reviews;
+      foundCompany.rating = rating;
+      foundCompany.save((err, savedCompany) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedCompany) {
+          console.log(savedCompany);
+          return res.status(200).json(savedCompany);
+        }
+      });
+    }
+  });
+});
+
+server.post('/guide-update-reviews', (req, res) => {
+  const { reviews, profileNum, rating } = req.body;
+  User.findOne({ profileNum }, (err, foundGuide) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundGuide) {
+      console.log(foundGuide);
+      foundGuide.reviews = reviews;
+      foundGuide.rating = rating;
+      foundGuide.save((err, savedGuide) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedGuide) {
+          console.log(savedGuide);
+          return res.status(200).json(savedGuide);
+        }
+      });
+    }
+  });
+});
+
 server.post('/new-review', (req, res) => {
   const { newReview } = req.body;
   console.log(newReview);
@@ -889,6 +864,31 @@ server.post('/new-review', (req, res) => {
     if (savedReview) {
       console.log(savedReview);
       return res.status(200).json(savedReview);
+    }
+  });
+});
+
+server.post('/trip-update-reviews', (req, res) => {
+  const { reviews, id, rating } = req.body;
+  Trip.findOne({ profileNum: id }, (err, foundTrip) => {
+    if (err) {
+      console.log(err);
+      return res.status(503).send(err);
+    }
+    if (foundTrip) {
+      console.log(foundTrip);
+      foundTrip.reviews = reviews;
+      foundTrip.rating = rating;
+      foundTrip.save((err, savedTrip) => {
+        if (err) {
+          console.log(err);
+          return res.status(503).send(err);
+        }
+        if (savedTrip) {
+          console.log(savedTrip);
+          return res.status(200).json(savedTrip);
+        }
+      });
     }
   });
 });
