@@ -408,11 +408,11 @@ server.post('/unlink-guide-from-trip', (req, res) => {
       for (let i = 0; i < guides.length; i++) {
         const target = guides[i].tripsQualified.indexOf(tripToUnlink);
         guides[i].tripsQualified.splice(target, 1);
-        guides[i].save().
-          then((guide) => {
+        guides[i].save()
+          .then((guide) => {
             console.log(`Updated and saved ${guide.name}`);
-          }).
-          catch((err) => {
+          })
+          .catch((err) => {
             console.log(err);
           });
       }
@@ -676,7 +676,6 @@ server.post('/edit-trip', (req, res) => {
    } = req.body;
    const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); })).concat(activities.map(activity => { return activity.toLowerCase(); }));
    const updateTrip = {
-     id,
      name,
      description,
      city,
@@ -690,7 +689,7 @@ server.post('/edit-trip', (req, res) => {
      tags,
      activities,
    };
-   Trip.findByIdAndUpdate(id, updateTrip, (err, updatedTrip) => {
+   Trip.findOneAndUpdate({ profileNum: id }, updateTrip, (err, updatedTrip) => {
      if (err) {
        console.log(err);
        return res.status(422).send('Error');
