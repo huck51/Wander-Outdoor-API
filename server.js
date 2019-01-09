@@ -373,7 +373,13 @@ server.post('/guide-bot', (req, res) => {
     tripsQualified,
   });
   return newUser.save()
-    .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }}, resolve(savedUser._id), reject(err)))
+    .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }})
+      .then(result => savedUser._id)
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
+    )
     .then(result => {
       console.log(`RESULT ====> ${result}`);
       return res.status(200).json(result);
