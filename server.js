@@ -752,6 +752,19 @@ server.post('/edit-trip', (req, res) => {
    });
 });
 
+server.post('/link-trip-to-guide', (req, res) => {
+  const { trips, guide } = req.body;
+  return Promise.all(trips.map(trip => Trip.findByIdAndUpdate(trip, { $push: { guides: guide }})))
+    .then(result => {
+      console.log(`RESULT ====> ${result}`);
+      return res.status(200).send('Successfully linked trips to guide');
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(503).send(err);
+    });
+});
+
 server.get('/trips', (req, res) => {
   Trip.find({}, (err, allTrips) => {
     if (err) {
