@@ -378,7 +378,7 @@ server.post('/guide-bot', (req, res) => {
       .catch(err => {
         console.log(err);
         return err;
-      });
+      })
     )
     .then(result => {
       console.log(`RESULT ====> ${result}`);
