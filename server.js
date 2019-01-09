@@ -352,6 +352,7 @@ server.post('/guide-bot', (req, res) => {
     activities,
   } = req.body;
   const profileNum = cryptoRandomString(25);
+  const id = cryptoRandomString(25);
   const newUser = new User({
     firstName,
     lastName,
@@ -367,8 +368,9 @@ server.post('/guide-bot', (req, res) => {
     chex,
     activities,
     profileNum,
+    id
   });
-  newUser.save()
+  return newUser.save()
     .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }}))
     .then(result => {
       console.log(`RESULT ====> ${result}`);
@@ -377,8 +379,7 @@ server.post('/guide-bot', (req, res) => {
     .catch(err => {
       console.log(err);
       return res.status(503).send(err);
-    })
-  return res.status(200).send('Star Wars');
+    });
 });
 
 server.get('/guides', (req, res) => {
