@@ -336,6 +336,48 @@ server.get('/get-user-profile/:profileNum', (req, res) => {
 });
 
 server.post('/guide-bot', (req, res) => {
+  const {
+    firstName,
+    lastName,
+    DOB,
+    email,
+    phone,
+    bio,
+    roleGroup,
+    picture,
+    companyCode,
+    city,
+    stateName,
+    chex,
+    activities,
+  } = req.body;
+  const profileNum = cryptoRandomString(25);
+  const newUser = new User({
+    firstName,
+    lastName,
+    DOB,
+    email,
+    phone,
+    bio,
+    roleGroup,
+    picture,
+    companyCode,
+    city,
+    stateName,
+    chex,
+    activities,
+    profileNum,
+  });
+  newUser.save()
+    .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }}))
+    .then(result => {
+      console.log(`RESULT ====> ${result}`);
+      return res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(503).send(err);
+    })
   return res.status(200).send('Star Wars');
 });
 
