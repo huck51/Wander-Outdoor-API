@@ -354,6 +354,7 @@ server.post('/guide-bot', (req, res) => {
   } = req.body;
   const profileNum = cryptoRandomString(25);
   const id = cryptoRandomString(25);
+  const tags = [firstName.toLowerCase(), lastName.toLowerCase(), roleGroup.toLowerCase(), city.toLowerCase(), stateName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); }));
   const newUser = new User({
     firstName,
     lastName,
@@ -371,6 +372,7 @@ server.post('/guide-bot', (req, res) => {
     profileNum,
     id,
     tripsQualified,
+    tags,
   });
   return newUser.save()
     .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }})
