@@ -373,6 +373,7 @@ server.post('/guide-bot', (req, res) => {
     id,
     tripsQualified,
     tags,
+    name: `${firstName} ${lastName}`
   });
   return newUser.save()
     .then(savedUser => Company.findOneAndUpdate({ companyCode: savedUser.companyCode }, { $push: { guides: savedUser._id }})
