@@ -28,6 +28,7 @@ const TripSchema = new Schema({
     type: String,
     required: true,
   },
+  priceAddOns: [Schema.Types.Mixed],
   guides: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   rating: {
     rate: {
