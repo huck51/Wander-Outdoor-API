@@ -642,10 +642,10 @@ server.post('/add-trip', async (req, res) => {
     price,
     companyCode,
     picture,
-    chex,
     guides,
     tripUrl,
     activities,
+    priceAddOns
   } = req.body;
   const parentCompany = await Company.findOne({ companyCode }, (err, foundCompany) => {
     if (err) {
@@ -657,7 +657,7 @@ server.post('/add-trip', async (req, res) => {
     }
   });
   const profileNum = cryptoRandomString(25);
-  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), parentCompany.companyName.toLowerCase()].concat(chex.map(check => { return check.toLowerCase(); })).concat(activities.map(activity => { return activity.toLowerCase(); }));
+  const tags = ['trip', name.toLowerCase(), city.toLowerCase(), stateName.toLowerCase(), price.toLowerCase(), parentCompany.companyName.toLowerCase()].concat(activities.map(activity => { return activity.toLowerCase(); }));
   const newTrip = new Trip({
     name,
     city,
@@ -666,7 +666,6 @@ server.post('/add-trip', async (req, res) => {
     price,
     companyName: parentCompany.companyName,
     picture,
-    chex,
     tags,
     company: parentCompany._id,
     companyCode,
@@ -674,6 +673,7 @@ server.post('/add-trip', async (req, res) => {
     tripUrl,
     activities,
     profileNum,
+    priceAddOns
   });
   parentCompany.trips.push(newTrip._id);
   parentCompany.save((err, success) => {
