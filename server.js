@@ -69,8 +69,17 @@ const searchAll = (tags) => {
   return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
 
-const searchModel = (model, tags) => {
-  const models = [model];
+const searchModel = (mod, tags) => {
+  const models = [];
+  if (mod === 'User') {
+    models.push(User);
+  } else if (mod === 'Trip') {
+    models.push(Trip);
+  } else if (mod === 'Company') {
+    models.push(Company);
+  } else {
+    return 'No Matching Results';
+  }
   return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 }
 //smtpout.secureserver.net
