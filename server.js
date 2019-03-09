@@ -1085,7 +1085,7 @@ server.get('/search/:model/:search', (req, res) => {
     searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
   }
   console.log(searchParams);
-  searchModel(searchParams)
+  searchModel(model, searchParams)
   .then((result) => {
     console.log(result);
     res.status(200).json(result);
