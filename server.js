@@ -1077,7 +1077,8 @@ server.get('/results', (req, res) => {
 });
 
 server.get('/search/:model/:search', (req, res) => {
-  const  { model, search } = req.query;
+  console.log(req.params);
+  const  { model, search } = req.params;
   var searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
   for (let i = 0; i < searchParams.length; i++) {
