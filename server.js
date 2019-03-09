@@ -68,6 +68,11 @@ const searchAll = (tags) => {
   const models = [Company, User, Trip];
   return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
 };
+
+const searchModel = (model, tags) => {
+  const models = [model];
+  return Promise.all(models.map(model => model.find({ 'tags': { $in: tags } }, { score: { $meta: 'textScore' } } ).sort({ score: { $meta: 'textScore' } })));
+}
 //smtpout.secureserver.net
 
 const authZeroProcess = () => {
@@ -1065,6 +1070,24 @@ server.get('/results', (req, res) => {
     const cat = result[0].concat(result[1]).concat(result[2]);
     console.log(cat);
     res.status(200).json(cat);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+});
+
+server.get('/search/:model/:search', (req, res) => {
+  const  { model, search } = req.query;
+  var searchParams = search.toLowerCase().split(' ');
+  searchParams.push(searchParams.join(' '));
+  for (let i = 0; i < searchParams.length; i++) {
+    searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
+  }
+  console.log(searchParams);
+  searchModel(searchParams)
+  .then((result) => {
+    console.log(result);
+    res.status(200).json(result);
   })
   .catch((error) => {
     console.log(error);
