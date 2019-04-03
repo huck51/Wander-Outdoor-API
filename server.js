@@ -155,6 +155,17 @@ server.post('/add-guides-to-company', (req, res) => {
   });
 });
 
+server.get('/company/account/info/:company', (req, res) => {
+  const companyCode = req.params.company;
+  Company.findOne({companyCode}, (err, foundCompany) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+    return res.status(200).json(foundCompany);
+  })
+});
+
 server.get('/company/:company', (req, res) => {
   const profileNum = req.params.company;
   Company.findOne({ profileNum }).
@@ -1086,17 +1097,14 @@ server.get('/results', (req, res) => {
 });
 
 server.get('/search/:model/:search', (req, res) => {
-  console.log(req.params);
   const  { model, search } = req.params;
   var searchParams = search.toLowerCase().split(' ');
   searchParams.push(searchParams.join(' '));
   for (let i = 0; i < searchParams.length; i++) {
     searchParams[i] = new RegExp(escapeRegex(searchParams[i]), 'gi');
   }
-  console.log(searchParams);
   searchModel(model, searchParams)
   .then((result) => {
-    console.log(result);
     res.status(200).json(result);
   })
   .catch((error) => {
